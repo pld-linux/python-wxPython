@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_with	gtk1	# use gtk+ 1.x and wxGTK instead of gtk+2/wxGTK2-unicode
+%bcond_with	gtk1	# use GTK+ 1.x and wxGTK instead of GTK+2/wxGTK2-unicode
 #
 %define		module	wxPython
 
