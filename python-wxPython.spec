@@ -7,10 +7,11 @@ Summary(pl):	Wielo-platformowe narzêdzie GUI dla Pythona
 Name:		python-%{module}
 Version:	2.3.2.1
 Release:	7
-Source0:	http://prdownloads.sourceforge.net/wxpython/%{module}-%{version}.tar.gz
-Patch0:		%{module}-no_gizmos.patch
 License:	wxWindows (LGPL derivative)
 Group:		Libraries/Python
+Source0:	http://dl.sourceforge.net/wxpython/%{module}-%{version}.tar.gz
+Patch0:		%{module}-no_gizmos.patch
+URL:		http://wxpython.org/
 BuildRequires:  rpm-pythonprov
 %pyrequires_eq	python-modules
 BuildRequires:	glib-devel
@@ -18,7 +19,6 @@ BuildRequires:	gtkglarea-devel
 BuildRequires:	python >= 2.2.1
 BuildRequires:	wxGTK-devel >= 2.3.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-URL:		http://wxpython.org/
 
 %description
 wxPython is a GUI toolkit for Python that is a wrapper around the
