@@ -2,7 +2,6 @@
 # Conditional build:
 %bcond_with	gtk1	# use gtk+ 1.x and wxGTK instead of gtk+2/wxGTK2-unicode
 #
-%include	/usr/lib/rpm/macros.python
 %define		module	wxPython
 
 Summary:	Cross platform GUI toolkit for Python
