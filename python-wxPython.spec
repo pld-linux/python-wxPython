@@ -12,7 +12,6 @@ URL:		http://wxpython.org/
 %pyrequires_eq	python-modules
 BuildRequires:	glib-devel
 BuildRequires:	python >= 2.3
-BuildRequires:	rpm-pythonprov
 BuildRequires:	wxGTK2-unicode-devel >= 2.5.3
 BuildRequires:	wxGTK2-unicode-gl-devel >= 2.5.3
 BuildRequires:	python-devel
