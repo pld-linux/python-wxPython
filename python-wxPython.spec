@@ -1,3 +1,6 @@
+# bconds:
+# _with_gtk2
+
 %include	/usr/lib/rpm/macros.python
 
 %define		module	wxPython
@@ -6,7 +9,7 @@ Summary:	Cross platform GUI toolkit for Python
 Summary(pl):	Wielo-platformowe narzêdzie GUI dla Pythona
 Name:		python-%{module}
 Version:	2.4.0.7
-Release:	0.1
+Release:	0.2
 License:	wxWindows Library v. 3 (LGPL derivative)
 Group:		Libraries/Python
 Source0:	http://dl.sourceforge.net/wxpython/%{module}Src-%{version}.tar.gz
@@ -17,8 +20,13 @@ BuildRequires:  rpm-pythonprov
 BuildRequires:	glib-devel
 BuildRequires:	gtkglarea-devel
 BuildRequires:	python >= 2.2.1
+%if 0%{?_with_gtk2:1}
+BuildRequires:	wxGTK2-unicode-devel >= 2.4.0
+BuildRequires:	wxGTK2-unicode-gl-devel >= 2.4.0
+%else
 BuildRequires:	wxGTK-devel >= 2.4.0
 BuildRequires:	wxGTK-gl-devel >= 2.4.0
+%endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -52,8 +60,8 @@ Przyk³adowe programy wxPython
 cd wxPython
 CFLAGS="%{rpmcflags}" python setup.py build \
 	IN_CVS_TREE=1 \
-	WXPORT=gtk \
-	UNICODE=0 
+	WXPORT=gtk%{?_with_gtk2:2} \
+	UNICODE=%(expr 0 + 0%{?_with_gtk2:1}) 
 
 %install
 cd wxPython
@@ -61,8 +69,8 @@ rm -rf $RPM_BUILD_ROOT
 
 python setup.py install \
 	IN_CVS_TREE=1 \
-	WXPORT=gtk \
-	UNICODE=0 \
+	WXPORT=gtk%{?_with_gtk2:2} \
+	UNICODE=%(expr 0 + 0%{?_with_gtk2:1}) \
 	--optimize=2 \
 	--root=$RPM_BUILD_ROOT 
 
