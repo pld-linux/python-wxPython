@@ -9,7 +9,7 @@ Summary:	Cross platform GUI toolkit for Python
 Summary(pl):	Wielo-platformowe narzêdzie GUI dla Pythona
 Name:		python-%{module}
 Version:	2.4.1.2
-Release:	0.1
+Release:	0.2
 License:	wxWindows Library v. 3 (LGPL derivative)
 Group:		Libraries/Python
 Source0:	http://dl.sourceforge.net/wxpython/%{module}Src-%{version}.tar.gz
@@ -19,14 +19,14 @@ URL:		http://wxpython.org/
 BuildRequires:  rpm-pythonprov
 %pyrequires_eq	python-modules
 BuildRequires:	glib-devel
-BuildRequires:	gtkglarea-devel
+#BuildRequires:	gtkglarea-devel
 BuildRequires:	python >= 2.2.1
 %if 0%{?_with_gtk2:1}
-BuildRequires:	wxGTK2-unicode-devel >= 2.4.0
-BuildRequires:	wxGTK2-unicode-gl-devel >= 2.4.0
+BuildRequires:	wxGTK2-unicode-devel >= 2.4.1-0.2
+BuildRequires:	wxGTK2-unicode-gl-devel >= 2.4.1-0.2
 %else
-BuildRequires:	wxGTK-devel >= 2.4.0
-BuildRequires:	wxGTK-gl-devel >= 2.4.0
+BuildRequires:	wxGTK-devel >= 2.4.1-0.2
+BuildRequires:	wxGTK-gl-devel >= 2.4.1-0.2
 %endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -90,7 +90,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/*
 %dir %{py_sitedir}/%{module}/lib
 %dir %{py_sitedir}/%{module}/lib/PyCrust
-%dir %{py_sitedir}/%{module}/lib/PyCrust/wxd
 %dir %{py_sitedir}/%{module}/lib/colourchooser
 %dir %{py_sitedir}/%{module}/lib/editor
 %dir %{py_sitedir}/%{module}/lib/mixins
@@ -100,13 +99,36 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/%{module}/*.py[co]
 %{py_sitedir}/%{module}/lib/*.py[co]
 %{py_sitedir}/%{module}/lib/PyCrust/*.py[co]
-%{py_sitedir}/%{module}/lib/PyCrust/wxd/*.py[co]
 %{py_sitedir}/%{module}/lib/colourchooser/*.py[co]
 %{py_sitedir}/%{module}/lib/editor/*.py[co]
 %{py_sitedir}/%{module}/lib/mixins/*.py[co]
 %{py_sitedir}/%{module}/tools/*.py[co]
 %{py_sitedir}/%{module}/tools/XRCed/*.py[co]
 %{py_sitedir}/%{module}/tools/XRCed/*.txt
+%{py_sitedir}/%{module}/tools/XRCed/*.xrc
+
+%dir %{py_sitedir}/%{module}/py
+%{py_sitedir}/%{module}/py/*.py[co]
+%doc %{py_sitedir}/%{module}/py/README.txt
+%dir %{py_sitedir}/%{module}/py/wxd
+%{py_sitedir}/%{module}/py/wxd/*.py[co]
+
+%dir %{py_sitedir}/wx
+%{py_sitedir}/wx/*.py[co]
+%dir %{py_sitedir}/wx/lib
+%{py_sitedir}/wx/lib/*.py[co]
+%dir %{py_sitedir}/wx/lib/colourchooser
+%{py_sitedir}/wx/lib/colourchooser/*.py[co]
+%dir %{py_sitedir}/wx/lib/editor
+%{py_sitedir}/wx/lib/editor/*.py[co]
+%dir %{py_sitedir}/wx/lib/mixins
+%{py_sitedir}/wx/lib/mixins/*.py[co]
+%dir %{py_sitedir}/wx/py
+%{py_sitedir}/wx/py/*.py[co]
+%dir %{py_sitedir}/wx/tools
+%{py_sitedir}/wx/tools/*.py[co]
+%dir %{py_sitedir}/wx/tools/XRCed
+%{py_sitedir}/wx/tools/XRCed/*.py[co]
 
 %files examples
 %defattr(644,root,root,755)
