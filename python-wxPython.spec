@@ -23,8 +23,8 @@ BuildRequires:	glib-devel
 BuildRequires:	python >= 2.2.1
 BuildRequires:	rpm-pythonprov
 %if %{with gtk1}
-#BuildRequires:	wxGTK-devel >= 2.4.2-0.2
-#BuildRequires:	wxGTK-gl-devel >= 2.4.2-0.2
+BuildRequires:	wxGTK-devel >= 2.4.2-0.2
+BuildRequires:	wxGTK-gl-devel >= 2.4.2-0.2
 %else
 BuildRequires:	wxGTK2-unicode-devel >= 2.4.2-0.2
 BuildRequires:	wxGTK2-unicode-gl-devel >= 2.4.2-0.2
@@ -32,7 +32,6 @@ BuildRequires:	wxGTK2-unicode-gl-devel >= 2.4.2-0.2
 BuildRequires:	python-devel
 BuildRequires:	pkgconfig
 BuildRequires:	libstdc++-devel
-BuildRequires:	gkt+2-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
