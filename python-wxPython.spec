@@ -15,7 +15,6 @@ Group:		Libraries/Python
 Source0:	http://dl.sourceforge.net/wxpython/%{module}Src-%{version}.tar.gz
 Patch0:		%{module}-contrib.patch
 URL:		http://wxpython.org/
-Prereq:         /sbin/ldconfig
 BuildRequires:  rpm-pythonprov
 %pyrequires_eq	python-modules
 BuildRequires:	glib-devel
