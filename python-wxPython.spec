@@ -32,6 +32,7 @@ BuildRequires:	wxGTK2-unicode-gl-devel >= 2.4.2-0.2
 BuildRequires:	python-devel
 BuildRequires:	gcc-c++
 BuildRequires:	pkgconfig
+BuildRequires:	libstdc++-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
