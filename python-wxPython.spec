@@ -1,6 +1,8 @@
-%bcond_with gtk1
+#
+# Conditional build:
+%bcond_with	gtk1	# use gtk+ 1.x and wxGTK instead of gtk+2/wxGTK2-unicode
+#
 %include	/usr/lib/rpm/macros.python
-
 %define		module	wxPython
 
 Summary:	Cross platform GUI toolkit for Python
@@ -15,12 +17,11 @@ Source0:	http://unc.dl.sourceforge.net/wxpython/%{module}Src-%{version}.tar.gz
 Patch0:		%{module}-contrib.patch
 Patch1:		%{module}-contrib2.patch
 URL:		http://wxpython.org/
-BuildRequires:	chrpath
-BuildRequires:	rpm-pythonprov
 %pyrequires_eq	python-modules
 BuildRequires:	glib-devel
 #BuildRequires:	gtkglarea-devel
 BuildRequires:	python >= 2.2.1
+BuildRequires:	rpm-pythonprov
 %if %{with gtk1}
 BuildRequires:	wxGTK-devel >= 2.4.2-0.2
 BuildRequires:	wxGTK-gl-devel >= 2.4.2-0.2
@@ -66,8 +67,8 @@ CFLAGS="%{rpmcflags}" python setup.py build \
 	UNICODE=%(expr 0 + 0%{!?with_gtk1:1})
 
 %install
-cd wxPython
 rm -rf $RPM_BUILD_ROOT
+cd wxPython
 
 python setup.py install \
 	IN_CVS_TREE=0 \
