@@ -98,21 +98,22 @@ rm -rf $RPM_BUILD_ROOT
 #don't remove this files, because this is licensing information
 %doc docs/{licence.txt,licendoc.txt,preamble.txt}
 %attr(755,root,root) %{_bindir}/*
-%dir %{py_sitedir}/%{module}/lib
-%dir %{py_sitedir}/%{module}/lib/PyCrust
-%dir %{py_sitedir}/%{module}/lib/colourchooser
-%dir %{py_sitedir}/%{module}/lib/editor
-%dir %{py_sitedir}/%{module}/lib/mixins
-%dir %{py_sitedir}/%{module}/tools
-%dir %{py_sitedir}/%{module}/tools/XRCed
+%dir %{py_sitedir}/%{module}
 %attr(755,root,root) %{py_sitedir}/%{module}/*.so
 %{py_sitedir}/%{module}/*.py[co]
+%dir %{py_sitedir}/%{module}/lib
 %{py_sitedir}/%{module}/lib/*.py[co]
+%dir %{py_sitedir}/%{module}/lib/PyCrust
 %{py_sitedir}/%{module}/lib/PyCrust/*.py[co]
+%dir %{py_sitedir}/%{module}/lib/colourchooser
 %{py_sitedir}/%{module}/lib/colourchooser/*.py[co]
+%dir %{py_sitedir}/%{module}/lib/editor
 %{py_sitedir}/%{module}/lib/editor/*.py[co]
+%dir %{py_sitedir}/%{module}/lib/mixins
 %{py_sitedir}/%{module}/lib/mixins/*.py[co]
+%dir %{py_sitedir}/%{module}/tools
 %{py_sitedir}/%{module}/tools/*.py[co]
+%dir %{py_sitedir}/%{module}/tools/XRCed
 %{py_sitedir}/%{module}/tools/XRCed/*.py[co]
 %{py_sitedir}/%{module}/tools/XRCed/*.txt
 %{py_sitedir}/%{module}/tools/XRCed/*.xrc
