@@ -5,19 +5,19 @@
 Summary:	Cross platform GUI toolkit for Python
 Summary(pl):	Wielo-platformowe narzêdzie GUI dla Pythona
 Name:		python-%{module}
-Version:	2.3.2.1
-Release:	7
-License:	wxWindows (LGPL derivative)
+Version:	2.4.0.4
+Release:	0.1
+License:	wxWindows Library v. 3 (LGPL derivative)
 Group:		Libraries/Python
-Source0:	http://dl.sourceforge.net/wxpython/%{module}-%{version}.tar.gz
-Patch0:		%{module}-no_gizmos.patch
+Source0:	http://dl.sourceforge.net/wxpython/%{module}Src-%{version}.tar.gz
+Patch0:		%{module}-contrib.patch
 URL:		http://wxpython.org/
 BuildRequires:  rpm-pythonprov
 %pyrequires_eq	python-modules
 BuildRequires:	glib-devel
 BuildRequires:	gtkglarea-devel
 BuildRequires:	python >= 2.2.1
-BuildRequires:	wxGTK-devel >= 2.3.2
+BuildRequires:	wxGTK-devel >= 2.4.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -44,19 +44,28 @@ wxPython example programs
 Przyk³adowe programy wxPython
 
 %prep
-%setup -q -n %{module}-%{version}
+%setup -q -n %{module}Src-%{version}
 %patch0 -p1
 
 %build
-CFLAGS="%{rpmcflags}" python setup.py build
+cd wxPython
+CFLAGS="%{rpmcflags}" python setup.py build \
+	IN_CVS_TREE=1 \
+	WXPORT=gtk \
+	UNICODE=0 
 
 %install
+cd wxPython
 rm -rf $RPM_BUILD_ROOT
 
 python setup.py install \
+	IN_CVS_TREE=1 \
+	WXPORT=gtk \
+	UNICODE=0 \
 	--optimize=2 \
 	--root=$RPM_BUILD_ROOT 
 
+install wxPython/tools/XRCed/*.txt $RPM_BUILD_ROOT%{py_sitedir}/%{module}/tools/XRCed/
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 cp -a demo samples $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
@@ -65,17 +74,29 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc CHANGES.txt README.txt licence/*.txt
+%doc wxPython/{CHANGES.txt,README.txt}
+#don't remove this files, because this is licensing information
+%doc docs/{licence.txt,licendoc.txt,preamble.txt}
+%attr(755,root,root) %{_bindir}/*
 %dir %{py_sitedir}/%{module}/lib
 %dir %{py_sitedir}/%{module}/lib/PyCrust
+%dir %{py_sitedir}/%{module}/lib/PyCrust/decor
+%dir %{py_sitedir}/%{module}/lib/colourchooser
 %dir %{py_sitedir}/%{module}/lib/editor
 %dir %{py_sitedir}/%{module}/lib/mixins
+%dir %{py_sitedir}/%{module}/tools
+%dir %{py_sitedir}/%{module}/tools/XRCed
 %{py_sitedir}/%{module}/*.so
 %{py_sitedir}/%{module}/*.py[co]
 %{py_sitedir}/%{module}/lib/*.py[co]
 %{py_sitedir}/%{module}/lib/PyCrust/*.py[co]
+%{py_sitedir}/%{module}/lib/PyCrust/decor/*.py[co]
+%{py_sitedir}/%{module}/lib/colourchooser/*.py[co]
 %{py_sitedir}/%{module}/lib/editor/*.py[co]
 %{py_sitedir}/%{module}/lib/mixins/*.py[co]
+%{py_sitedir}/%{module}/tools/*.py[co]
+%{py_sitedir}/%{module}/tools/XRCed/*.py[co]
+%{py_sitedir}/%{module}/tools/XRCed/*.txt
 
 %files examples
 %defattr(644,root,root,755)
