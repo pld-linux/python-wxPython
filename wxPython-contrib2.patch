@@ -133,7 +133,7 @@
 -                             ] + swig_sources,
 +    local_link_args = '-l' + os.popen(WX_CONFIG + ' --basename', 'r').read()[:-1] + '_gizmos-' + os.popen(WX_CONFIG + ' --release', 'r').read()[:-1]
 +    ext = Extension('gizmosc', 
-+	            swig_sources,
++	            ['%s/treelistctrl.cpp' % location] + swig_sources,
  
                      include_dirs =  gizmos_includes,
                      define_macros = defines,
