@@ -6,7 +6,7 @@ Summary:	Cross platform GUI toolkit for Python
 Summary(pl):	Wielo-platformowe narzêdzie GUI dla Pythona
 Name:		python-%{module}
 Version:	2.3.2.1
-Release:	5
+Release:	6
 Source0:	http://prdownloads.sourceforge.net/wxpython/%{module}-%{version}.tar.gz
 Patch0:		%{module}-no_gizmos.patch
 License:	wxWindows (LGPL derivative)
@@ -78,4 +78,5 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/%{module}/lib/mixins/*.py[co]
 
 %files examples
+%defattr(644,root,root,755)
 %{_examplesdir}/%{name}-%{version}
