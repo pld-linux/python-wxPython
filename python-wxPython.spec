@@ -1,33 +1,20 @@
-#
-# Conditional build:
-%bcond_with	gtk1	# use GTK+ 1.x and wxGTK instead of GTK+2/wxGTK2-unicode
-#
 %define		module	wxPython
-
 Summary:	Cross platform GUI toolkit for Python
 Summary(pl):	Wielo-platformowe narzêdzie GUI dla Pythona
 Name:		python-%{module}
-Version:	2.4.2.4
-Release:	5%{?with_gtk1:.gtk1}
+Version:	2.5.3.1
+Release:	1
 License:	wxWindows Library v. 3 (LGPL derivative)
 Group:		Libraries/Python
-Source0:	http://dl.sourceforge.net/wxpython/%{module}Src-%{version}.tar.gz
-# Source0-md5:	ea4eb68e10a0c2a9be643b35dcb78e41
-Patch0:		%{module}-contrib.patch
-Patch1:		%{module}-contrib2.patch
+Source0:	http://dl.sourceforge.net/wxpython/%{module}-src-%{version}.tar.gz
+# Source0-md5:	3e3ed31f756a93f2d53725c4e0a18ba9
 URL:		http://wxpython.org/
 %pyrequires_eq	python-modules
 BuildRequires:	glib-devel
-#BuildRequires:	gtkglarea-devel
-BuildRequires:	python >= 2.2.1
+BuildRequires:	python >= 2.3
 BuildRequires:	rpm-pythonprov
-%if %{with gtk1}
-BuildRequires:	wxGTK-devel >= 2.4.2-0.2
-BuildRequires:	wxGTK-gl-devel >= 2.4.2-0.2
-%else
-BuildRequires:	wxGTK2-unicode-devel >= 2.4.2-0.2
-BuildRequires:	wxGTK2-unicode-gl-devel >= 2.4.2-0.2
-%endif
+BuildRequires:	wxGTK2-unicode-devel >= 2.5.3
+BuildRequires:	wxGTK2-unicode-gl-devel >= 2.5.3
 BuildRequires:	python-devel
 BuildRequires:	pkgconfig
 BuildRequires:	libstdc++-devel
@@ -57,9 +44,7 @@ wxPython example programs
 Przyk³adowe programy wxPython
 
 %prep
-%setup -q -n %{module}Src-%{version}
-%patch0 -p1
-%patch1 -p1
+%setup -q -n %{module}-src-%{version}
 
 # kill precompiled x86 binaries
 rm -f wxPython/demo/dllwidget/test_dll.{o,so}
@@ -70,22 +55,20 @@ rm -rf wxPython/distutils
 %build
 cd wxPython
 CFLAGS="%{rpmcflags}" python setup.py build \
-	IN_CVS_TREE=0 \
-	WXPORT=gtk%{!?with_gtk1:2} \
-	UNICODE=%(expr 0 + 0%{!?with_gtk1:1})
+	WX_CONFIG=%{_bindir}/wx-gtk2-unicode-config \
+	UNICODE=1
 
 %install
 rm -rf $RPM_BUILD_ROOT
 cd wxPython
 
 python setup.py install \
-	IN_CVS_TREE=0 \
-	WXPORT=gtk%{!?with_gtk1:2} \
-	UNICODE=%(expr 0 + 0%{!?with_gtk1:1}) \
-	--optimize=2 \
+	WX_CONFIG=%{_bindir}/wx-gtk2-unicode-config \
+	INSTALL_MULTIVERSION=0 \
+	UNICODE=1 \
+	--optimize 2 \
 	--root=$RPM_BUILD_ROOT
 
-install wxPython/tools/XRCed/*.txt $RPM_BUILD_ROOT%{py_sitedir}/%{module}/tools/XRCed/
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 cp -a demo samples $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
@@ -94,17 +77,14 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc wxPython/{CHANGES.txt,README.txt}
+%doc wxPython/docs/{CHANGES.txt,MigrationGuide.txt,README.txt}
 #don't remove this files, because this is licensing information
 %doc docs/{licence.txt,licendoc.txt,preamble.txt}
 %attr(755,root,root) %{_bindir}/*
 %dir %{py_sitedir}/%{module}
-%attr(755,root,root) %{py_sitedir}/%{module}/*.so
 %{py_sitedir}/%{module}/*.py[co]
 %dir %{py_sitedir}/%{module}/lib
 %{py_sitedir}/%{module}/lib/*.py[co]
-%dir %{py_sitedir}/%{module}/lib/PyCrust
-%{py_sitedir}/%{module}/lib/PyCrust/*.py[co]
 %dir %{py_sitedir}/%{module}/lib/colourchooser
 %{py_sitedir}/%{module}/lib/colourchooser/*.py[co]
 %dir %{py_sitedir}/%{module}/lib/editor
@@ -113,18 +93,9 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/%{module}/lib/mixins/*.py[co]
 %dir %{py_sitedir}/%{module}/tools
 %{py_sitedir}/%{module}/tools/*.py[co]
-%dir %{py_sitedir}/%{module}/tools/XRCed
-%{py_sitedir}/%{module}/tools/XRCed/*.py[co]
-%{py_sitedir}/%{module}/tools/XRCed/*.txt
-%{py_sitedir}/%{module}/tools/XRCed/*.xrc
-
-%dir %{py_sitedir}/%{module}/py
-%{py_sitedir}/%{module}/py/*.py[co]
-%doc %{py_sitedir}/%{module}/py/README.txt
-%dir %{py_sitedir}/%{module}/py/wxd
-%{py_sitedir}/%{module}/py/wxd/*.py[co]
 
 %dir %{py_sitedir}/wx
+%attr(755,root,root) %{py_sitedir}/wx/*.so
 %{py_sitedir}/wx/*.py[co]
 %dir %{py_sitedir}/wx/lib
 %{py_sitedir}/wx/lib/*.py[co]
@@ -132,14 +103,24 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/wx/lib/colourchooser/*.py[co]
 %dir %{py_sitedir}/wx/lib/editor
 %{py_sitedir}/wx/lib/editor/*.py[co]
+%dir %{py_sitedir}/wx/lib/floatcanvas
+%{py_sitedir}/wx/lib/floatcanvas/*.py[co]
+%dir %{py_sitedir}/wx/lib/masked
+%{py_sitedir}/wx/lib/masked/*.py[co]
 %dir %{py_sitedir}/wx/lib/mixins
 %{py_sitedir}/wx/lib/mixins/*.py[co]
+%dir %{py_sitedir}/wx/lib/ogl
+%{py_sitedir}/wx/lib/ogl/*.py[co]
 %dir %{py_sitedir}/wx/py
+%{py_sitedir}/wx/py/*.ico
 %{py_sitedir}/wx/py/*.py[co]
+%doc %{py_sitedir}/wx/py/*.txt
 %dir %{py_sitedir}/wx/tools
 %{py_sitedir}/wx/tools/*.py[co]
 %dir %{py_sitedir}/wx/tools/XRCed
 %{py_sitedir}/wx/tools/XRCed/*.py[co]
+%doc %{py_sitedir}/wx/tools/XRCed/*.txt
+%{py_sitedir}/wx/tools/XRCed/*.xrc
 
 %files examples
 %defattr(644,root,root,755)
