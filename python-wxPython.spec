@@ -12,7 +12,7 @@ Version:	2.4.2.4
 Release:	2%{?with_gtk1:.gtk1}
 License:	wxWindows Library v. 3 (LGPL derivative)
 Group:		Libraries/Python
-Source0:	http://unc.dl.sourceforge.net/wxpython/%{module}Src-%{version}.tar.gz
+Source0:	http://dl.sourceforge.net/wxpython/%{module}Src-%{version}.tar.gz
 # Source0-md5:	ea4eb68e10a0c2a9be643b35dcb78e41
 Patch0:		%{module}-contrib.patch
 Patch1:		%{module}-contrib2.patch
