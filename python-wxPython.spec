@@ -15,6 +15,7 @@ Source0:	http://unc.dl.sourceforge.net/wxpython/%{module}Src-%{version}.tar.gz
 Patch0:		%{module}-contrib.patch
 Patch1:		%{module}-contrib2.patch
 URL:		http://wxpython.org/
+BuildRequires:	chrpath
 BuildRequires:	rpm-pythonprov
 %pyrequires_eq	python-modules
 BuildRequires:	glib-devel
