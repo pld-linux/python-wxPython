@@ -9,7 +9,7 @@ Summary:	Cross platform GUI toolkit for Python
 Summary(pl):	Wielo-platformowe narzêdzie GUI dla Pythona
 Name:		python-%{module}
 Version:	2.4.2.4
-Release:	2%{?with_gtk1:.gtk1}
+Release:	3%{?with_gtk1:.gtk1}
 License:	wxWindows Library v. 3 (LGPL derivative)
 Group:		Libraries/Python
 Source0:	http://dl.sourceforge.net/wxpython/%{module}Src-%{version}.tar.gz
@@ -100,7 +100,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_sitedir}/%{module}/lib/mixins
 %dir %{py_sitedir}/%{module}/tools
 %dir %{py_sitedir}/%{module}/tools/XRCed
-%{py_sitedir}/%{module}/*.so
+%attr(755,root,root) %{py_sitedir}/%{module}/*.so
 %{py_sitedir}/%{module}/*.py[co]
 %{py_sitedir}/%{module}/lib/*.py[co]
 %{py_sitedir}/%{module}/lib/PyCrust/*.py[co]
