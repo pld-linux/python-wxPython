@@ -80,7 +80,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/*
 %dir %{py_sitedir}/%{module}/lib
 %dir %{py_sitedir}/%{module}/lib/PyCrust
-%dir %{py_sitedir}/%{module}/lib/PyCrust/decor
+%dir %{py_sitedir}/%{module}/lib/PyCrust/wxd
 %dir %{py_sitedir}/%{module}/lib/colourchooser
 %dir %{py_sitedir}/%{module}/lib/editor
 %dir %{py_sitedir}/%{module}/lib/mixins
@@ -90,7 +90,7 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/%{module}/*.py[co]
 %{py_sitedir}/%{module}/lib/*.py[co]
 %{py_sitedir}/%{module}/lib/PyCrust/*.py[co]
-%{py_sitedir}/%{module}/lib/PyCrust/decor/*.py[co]
+%{py_sitedir}/%{module}/lib/PyCrust/wxd/*.py[co]
 %{py_sitedir}/%{module}/lib/colourchooser/*.py[co]
 %{py_sitedir}/%{module}/lib/editor/*.py[co]
 %{py_sitedir}/%{module}/lib/mixins/*.py[co]
