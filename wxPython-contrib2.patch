@@ -1,0 +1,171 @@
+--- wxPythonSrc-2.4.1.2/wxPython/setup.py.wiget	2003-08-01 12:45:56.000000000 +0200
++++ wxPythonSrc-2.4.1.2/wxPython/setup.py	2003-08-01 13:15:44.000000000 +0200
+@@ -744,20 +744,8 @@
+         contrib_copy_tree(opj(CTRB_INC, 'ogl'), opj(OGLINC, 'wx/ogl'))
+         contrib_copy_tree(opj(CTRB_SRC, 'ogl'), OGLLOC)
+ 
+-    ext = Extension('oglc', ['%s/basic.cpp' % OGLLOC,
+-                             '%s/bmpshape.cpp' % OGLLOC,
+-                             '%s/composit.cpp' % OGLLOC,
+-                             '%s/divided.cpp' % OGLLOC,
+-                             '%s/lines.cpp' % OGLLOC,
+-                             '%s/misc.cpp' % OGLLOC,
+-                             '%s/basic2.cpp' % OGLLOC,
+-                             '%s/canvas.cpp' % OGLLOC,
+-                             '%s/constrnt.cpp' % OGLLOC,
+-                             '%s/drawn.cpp' % OGLLOC,
+-                             '%s/mfutils.cpp' % OGLLOC,
+-                             '%s/ogldiag.cpp' % OGLLOC,
+-                             ] + swig_sources,
+-
++    local_link_args = '-l' + os.popen(WX_CONFIG + ' --basename', 'r').read()[:-1] + '_ogl-' + os.popen(WX_CONFIG + ' --release', 'r').read()[:-1]
++    ext = Extension('oglc',  swig_sources,
+                     include_dirs =  [OGLINC] + includes,
+                     define_macros = defines,
+ 
+@@ -765,7 +753,7 @@
+                     libraries = libs,
+ 
+                     extra_compile_args = cflags,
+-                    extra_link_args = lflags,
++                    extra_link_args = lflags + [local_link_args],
+                     )
+ 
+     wxpExtensions.append(ext)
+@@ -801,6 +789,8 @@
+         # make sure local copy of contrib files are up to date
+         contrib_copy_tree(opj(CTRB_INC, 'stc'), opj(STCINC, 'wx/stc'))
+         contrib_copy_tree(opj(CTRB_SRC, 'stc'), STCLOC)
++    else:
++	STC_H = os.popen(WX_CONFIG + ' --prefix', 'r').read()[:-1] + '/include/wx/stc'
+ 
+ 
+ 
+@@ -826,35 +816,8 @@
+     stc_defines.append( ('LINK_LEXERS', None) )
+ 
+ 
+-    ext = Extension('stc_c',
+-                    ['%s/PlatWX.cpp' % STCLOC,
+-                     '%s/ScintillaWX.cpp' % STCLOC,
+-                     '%s/stc.cpp' % STCLOC,
+-
+-                     '%s/scintilla/src/AutoComplete.cxx' % STCLOC,
+-                     '%s/scintilla/src/CallTip.cxx' % STCLOC,
+-                     '%s/scintilla/src/CellBuffer.cxx' % STCLOC,
+-                     '%s/scintilla/src/ContractionState.cxx' % STCLOC,
+-                     '%s/scintilla/src/Document.cxx' % STCLOC,
+-                     '%s/scintilla/src/DocumentAccessor.cxx' % STCLOC,
+-                     '%s/scintilla/src/Editor.cxx' % STCLOC,
+-                     '%s/scintilla/src/Indicator.cxx' % STCLOC,
+-                     '%s/scintilla/src/KeyMap.cxx' % STCLOC,
+-                     '%s/scintilla/src/KeyWords.cxx' % STCLOC,
+-                     '%s/scintilla/src/LineMarker.cxx' % STCLOC,
+-                     '%s/scintilla/src/PropSet.cxx' % STCLOC,
+-                     '%s/scintilla/src/RESearch.cxx' % STCLOC,
+-                     '%s/scintilla/src/ScintillaBase.cxx' % STCLOC,
+-                     '%s/scintilla/src/Style.cxx' % STCLOC,
+-                     '%s/scintilla/src/StyleContext.cxx' % STCLOC,
+-                     '%s/scintilla/src/UniConversion.cxx' % STCLOC,
+-                     '%s/scintilla/src/ViewStyle.cxx' % STCLOC,
+-                     '%s/scintilla/src/WindowAccessor.cxx' % STCLOC,
+-                     '%s/scintilla/src/XPM.cxx' % STCLOC,
+-                     ]
+-                    + glob.glob('%s/scintilla/src/Lex*.cxx' % STCLOC)
+-                    + swig_sources,
+-
++    local_link_args = '-l' + os.popen(WX_CONFIG + ' --basename', 'r').read()[:-1] + '_stc-' + os.popen(WX_CONFIG + ' --release', 'r').read()[:-1]
++    ext = Extension('stc_c', swig_sources,
+                     include_dirs = stc_includes,
+                     define_macros = stc_defines,
+ 
+@@ -862,7 +825,7 @@
+                     libraries = libs,
+ 
+                     extra_compile_args = cflags,
+-                    extra_link_args = lflags,
++                    extra_link_args = lflags + [local_link_args],
+                     )
+ 
+     wxpExtensions.append(ext)
+@@ -926,17 +889,9 @@
+         contrib_copy_tree(opj(CTRB_INC, 'xrc'), opj(XMLINC, 'wx/xrc'))
+         contrib_copy_tree(opj(CTRB_SRC, 'xrc'), XMLLOC)
+ 
++    local_link_args = '-l' + os.popen(WX_CONFIG + ' --basename', 'r').read()[:-1] + '_xrc-' + os.popen(WX_CONFIG + ' --release', 'r').read()[:-1]
+     ext = Extension('xrcc',
+-                    ['%s/expat/xmlparse/xmlparse.c' % XMLLOC,
+-                     '%s/expat/xmltok/xmlrole.c' % XMLLOC,
+-                     '%s/expat/xmltok/xmltok.c' % XMLLOC,
+-
+-                     ] + glob.glob('%s/xh_*.cpp' % XMLLOC) +
+-
+-                    [ '%s/xml.cpp' % XMLLOC,
+-                      '%s/xmlres.cpp' % XMLLOC,
+-                      '%s/xmlrsall.cpp' % XMLLOC,
+-                      ] + swig_sources,
++                    swig_sources,
+ 
+                     include_dirs =  xmlres_includes,
+                     define_macros = defines,
+@@ -945,7 +900,7 @@
+                     libraries = libs,
+ 
+                     extra_compile_args = cflags,
+-                    extra_link_args = lflags,
++                    extra_link_args = lflags + [local_link_args],
+                     )
+ 
+     wxpExtensions.append(ext)
+@@ -976,16 +931,9 @@
+         contrib_copy_tree(opj(CTRB_INC, 'gizmos'), opj(GIZMOINC, 'wx/gizmos'))
+         contrib_copy_tree(opj(CTRB_SRC, 'gizmos'), GIZMOLOC)
+ 
+-    ext = Extension('gizmosc', [
+-                                '%s/dynamicsash.cpp'  % GIZMOLOC,
+-                                '%s/editlbox.cpp'     % GIZMOLOC,
+-                                '%s/splittree.cpp'    % GIZMOLOC,
+-                                '%s/ledctrl.cpp'      % GIZMOLOC,
+-                                #'%s/multicell.cpp'    % GIZMOLOC,
+-
+-                                '%s/treelistctrl.cpp' % location,
+-
+-                             ] + swig_sources,
++    local_link_args = '-l' + os.popen(WX_CONFIG + ' --basename', 'r').read()[:-1] + '_gizmos-' + os.popen(WX_CONFIG + ' --release', 'r').read()[:-1]
++    ext = Extension('gizmosc', 
++	            swig_sources,
+ 
+                     include_dirs =  gizmos_includes,
+                     define_macros = defines,
+@@ -994,7 +942,7 @@
+                     libraries = libs,
+ 
+                     extra_compile_args = cflags,
+-                    extra_link_args = lflags,
++                    extra_link_args = lflags + [local_link_args],
+                     )
+ 
+     wxpExtensions.append(ext)
+@@ -1053,11 +1001,8 @@
+         contrib_copy_tree(opj(CTRB_INC, 'canvas'), opj(CANVASINC, 'wx/canvas'))
+         contrib_copy_tree(opj(CTRB_SRC, 'canvas'), CANVASLOC)
+ 
+-    ext = Extension('canvasc', ['%s/bbox.cpp' % CANVASLOC,
+-                                '%s/liner.cpp' % CANVASLOC,
+-                                '%s/polygon.cpp' % CANVASLOC,
+-                                '%s/canvas.cpp' % CANVASLOC,
+-                                ] + swig_sources,
++    local_link_args = '-l' + os.popen(WX_CONFIG + ' --basename', 'r').read()[:-1] + '_canvas-' + os.popen(WX_CONFIG + ' --release', 'r').read()[:-1]
++    ext = Extension('canvasc',  swig_sources,
+ 
+                     include_dirs = [CANVASINC] + includes,
+                     define_macros = defines,
+@@ -1066,7 +1011,7 @@
+                     libraries = libs,
+ 
+                     extra_compile_args = cflags,
+-                    extra_link_args = lflags,
++                    extra_link_args = lflags + [local_link_args],
+                     )
+ 
+     wxpExtensions.append(ext)
