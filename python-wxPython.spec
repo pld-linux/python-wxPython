@@ -62,6 +62,9 @@ Przyk³adowe programy wxPython
 %patch0 -p1
 %patch1 -p1
 
+# kill precompiled x86 binaries
+rm -f wxPython/demo/dllwidget/test_dll.{o,so}
+
 %build
 cd wxPython
 CFLAGS="%{rpmcflags}" python setup.py build \
