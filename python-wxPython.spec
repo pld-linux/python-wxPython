@@ -15,7 +15,7 @@ Source0:	http://dl.sourceforge.net/wxpython/%{module}Src-%{version}.tar.gz
 Patch0:		%{module}-contrib.patch
 Patch1:		%{module}-contrib2.patch
 URL:		http://wxpython.org/
-BuildRequires:  rpm-pythonprov
+BuildRequires:	rpm-pythonprov
 %pyrequires_eq	python-modules
 BuildRequires:	glib-devel
 #BuildRequires:	gtkglarea-devel
@@ -62,7 +62,7 @@ cd wxPython
 CFLAGS="%{rpmcflags}" python setup.py build \
 	IN_CVS_TREE=0 \
 	WXPORT=gtk%{?with_gtk2:2} \
-	UNICODE=%(expr 0 + 0%{?with_gtk2:1}) 
+	UNICODE=%(expr 0 + 0%{?with_gtk2:1})
 
 %install
 cd wxPython
@@ -73,7 +73,7 @@ python setup.py install \
 	WXPORT=gtk%{?with_gtk2:2} \
 	UNICODE=%(expr 0 + 0%{?with_gtk2:1}) \
 	--optimize=2 \
-	--root=$RPM_BUILD_ROOT 
+	--root=$RPM_BUILD_ROOT
 
 install wxPython/tools/XRCed/*.txt $RPM_BUILD_ROOT%{py_sitedir}/%{module}/tools/XRCed/
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
