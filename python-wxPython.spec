@@ -9,12 +9,13 @@ Summary:	Cross platform GUI toolkit for Python
 Summary(pl):	Wielo-platformowe narzêdzie GUI dla Pythona
 Name:		python-%{module}
 Version:	2.4.0.7
-Release:	0.2
+Release:	0.3
 License:	wxWindows Library v. 3 (LGPL derivative)
 Group:		Libraries/Python
 Source0:	http://dl.sourceforge.net/wxpython/%{module}Src-%{version}.tar.gz
 Patch0:		%{module}-contrib.patch
 URL:		http://wxpython.org/
+Prereq:         /sbin/ldconfig
 BuildRequires:  rpm-pythonprov
 %pyrequires_eq	python-modules
 BuildRequires:	glib-devel
@@ -80,6 +81,9 @@ cp -a demo samples $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post   -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
