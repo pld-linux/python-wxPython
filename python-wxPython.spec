@@ -13,7 +13,7 @@ Release:	0.1
 License:	wxWindows Library v. 3 (LGPL derivative)
 Group:		Libraries/Python
 Source0:	http://dl.sourceforge.net/wxpython/%{module}Src-%{version}.tar.gz
-# Source0-md5:	c7864b56ff1422697a310f91f54c7ed6
+# Source0-md5:	515fa95c5c0497404a858213b6586411
 Patch0:		%{module}-contrib.patch
 URL:		http://wxpython.org/
 BuildRequires:  rpm-pythonprov
