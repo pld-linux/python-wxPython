@@ -1,6 +1,4 @@
-# bconds:
-# _with_gtk2
-
+%bcond_with gtk2
 %include	/usr/lib/rpm/macros.python
 
 %define		module	wxPython
@@ -15,13 +13,14 @@ Group:		Libraries/Python
 Source0:	http://dl.sourceforge.net/wxpython/%{module}Src-%{version}.tar.gz
 # Source0-md5:	515fa95c5c0497404a858213b6586411
 Patch0:		%{module}-contrib.patch
+Patch1:		%{module}-contrib2.patch
 URL:		http://wxpython.org/
 BuildRequires:  rpm-pythonprov
 %pyrequires_eq	python-modules
 BuildRequires:	glib-devel
 #BuildRequires:	gtkglarea-devel
 BuildRequires:	python >= 2.2.1
-%if 0%{?_with_gtk2:1}
+%if %{with gtk2}
 BuildRequires:	wxGTK2-unicode-devel >= 2.4.1-0.2
 BuildRequires:	wxGTK2-unicode-gl-devel >= 2.4.1-0.2
 %else
@@ -56,22 +55,23 @@ Przyk³adowe programy wxPython
 %prep
 %setup -q -n %{module}Src-%{version}
 %patch0 -p1
+%patch1 -p1
 
 %build
 cd wxPython
 CFLAGS="%{rpmcflags}" python setup.py build \
-	IN_CVS_TREE=1 \
-	WXPORT=gtk%{?_with_gtk2:2} \
-	UNICODE=%(expr 0 + 0%{?_with_gtk2:1}) 
+	IN_CVS_TREE=0 \
+	WXPORT=gtk%{?with_gtk2:2} \
+	UNICODE=%(expr 0 + 0%{?with_gtk2:1}) 
 
 %install
 cd wxPython
 rm -rf $RPM_BUILD_ROOT
 
 python setup.py install \
-	IN_CVS_TREE=1 \
-	WXPORT=gtk%{?_with_gtk2:2} \
-	UNICODE=%(expr 0 + 0%{?_with_gtk2:1}) \
+	IN_CVS_TREE=0 \
+	WXPORT=gtk%{?with_gtk2:2} \
+	UNICODE=%(expr 0 + 0%{?with_gtk2:1}) \
 	--optimize=2 \
 	--root=$RPM_BUILD_ROOT 
 
