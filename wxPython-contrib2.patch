@@ -1,6 +1,6 @@
---- wxPythonSrc-2.4.1.2/wxPython/setup.py.wiget	2003-08-01 12:45:56.000000000 +0200
-+++ wxPythonSrc-2.4.1.2/wxPython/setup.py	2003-08-01 13:15:44.000000000 +0200
-@@ -744,20 +744,8 @@
+--- wxPythonSrc-2.4.2.4/wxPython/setup.py.wiget	2003-10-08 16:48:08.657479608 +0200
++++ wxPythonSrc-2.4.2.4/wxPython/setup.py	2003-10-08 16:52:51.355662451 +0200
+@@ -753,19 +753,8 @@
          contrib_copy_tree(opj(CTRB_INC, 'ogl'), opj(OGLINC, 'wx/ogl'))
          contrib_copy_tree(opj(CTRB_SRC, 'ogl'), OGLLOC)
  
@@ -9,7 +9,7 @@
 -                             '%s/composit.cpp' % OGLLOC,
 -                             '%s/divided.cpp' % OGLLOC,
 -                             '%s/lines.cpp' % OGLLOC,
--                             '%s/misc.cpp' % OGLLOC,
+-                             '%s/oglmisc.cpp' % OGLLOC,
 -                             '%s/basic2.cpp' % OGLLOC,
 -                             '%s/canvas.cpp' % OGLLOC,
 -                             '%s/constrnt.cpp' % OGLLOC,
@@ -17,13 +17,12 @@
 -                             '%s/mfutils.cpp' % OGLLOC,
 -                             '%s/ogldiag.cpp' % OGLLOC,
 -                             ] + swig_sources,
--
 +    local_link_args = '-l' + os.popen(WX_CONFIG + ' --basename', 'r').read()[:-1] + '_ogl-' + os.popen(WX_CONFIG + ' --release', 'r').read()[:-1]
-+    ext = Extension('oglc',  swig_sources,
++    ext = Extension('oglc', swig_sources,
+ 
                      include_dirs =  [OGLINC] + includes,
                      define_macros = defines,
- 
-@@ -765,7 +753,7 @@
+@@ -774,7 +763,7 @@
                      libraries = libs,
  
                      extra_compile_args = cflags,
@@ -32,7 +31,7 @@
                      )
  
      wxpExtensions.append(ext)
-@@ -801,6 +789,8 @@
+@@ -810,6 +799,8 @@
          # make sure local copy of contrib files are up to date
          contrib_copy_tree(opj(CTRB_INC, 'stc'), opj(STCINC, 'wx/stc'))
          contrib_copy_tree(opj(CTRB_SRC, 'stc'), STCLOC)
@@ -41,7 +40,7 @@
  
  
  
-@@ -826,35 +816,8 @@
+@@ -835,35 +826,8 @@
      stc_defines.append( ('LINK_LEXERS', None) )
  
  
@@ -57,6 +56,7 @@
 -                     '%s/scintilla/src/Document.cxx' % STCLOC,
 -                     '%s/scintilla/src/DocumentAccessor.cxx' % STCLOC,
 -                     '%s/scintilla/src/Editor.cxx' % STCLOC,
+-                     '%s/scintilla/src/ExternalLexer.cxx' % STCLOC,
 -                     '%s/scintilla/src/Indicator.cxx' % STCLOC,
 -                     '%s/scintilla/src/KeyMap.cxx' % STCLOC,
 -                     '%s/scintilla/src/KeyWords.cxx' % STCLOC,
@@ -73,13 +73,12 @@
 -                     ]
 -                    + glob.glob('%s/scintilla/src/Lex*.cxx' % STCLOC)
 -                    + swig_sources,
--
 +    local_link_args = '-l' + os.popen(WX_CONFIG + ' --basename', 'r').read()[:-1] + '_stc-' + os.popen(WX_CONFIG + ' --release', 'r').read()[:-1]
 +    ext = Extension('stc_c', swig_sources,
+ 
                      include_dirs = stc_includes,
                      define_macros = stc_defines,
- 
-@@ -862,7 +825,7 @@
+@@ -872,7 +836,7 @@
                      libraries = libs,
  
                      extra_compile_args = cflags,
@@ -88,7 +87,7 @@
                      )
  
      wxpExtensions.append(ext)
-@@ -926,17 +889,9 @@
+@@ -936,17 +900,9 @@
          contrib_copy_tree(opj(CTRB_INC, 'xrc'), opj(XMLINC, 'wx/xrc'))
          contrib_copy_tree(opj(CTRB_SRC, 'xrc'), XMLLOC)
  
@@ -108,7 +107,7 @@
  
                      include_dirs =  xmlres_includes,
                      define_macros = defines,
-@@ -945,7 +900,7 @@
+@@ -955,7 +911,7 @@
                      libraries = libs,
  
                      extra_compile_args = cflags,
@@ -117,7 +116,7 @@
                      )
  
      wxpExtensions.append(ext)
-@@ -976,16 +931,9 @@
+@@ -986,16 +942,9 @@
          contrib_copy_tree(opj(CTRB_INC, 'gizmos'), opj(GIZMOINC, 'wx/gizmos'))
          contrib_copy_tree(opj(CTRB_SRC, 'gizmos'), GIZMOLOC)
  
@@ -133,11 +132,11 @@
 -                             ] + swig_sources,
 +    local_link_args = '-l' + os.popen(WX_CONFIG + ' --basename', 'r').read()[:-1] + '_gizmos-' + os.popen(WX_CONFIG + ' --release', 'r').read()[:-1]
 +    ext = Extension('gizmosc', 
-+	            ['%s/treelistctrl.cpp' % location] + swig_sources,
++	            swig_sources,
  
                      include_dirs =  gizmos_includes,
                      define_macros = defines,
-@@ -994,7 +942,7 @@
+@@ -1004,7 +953,7 @@
                      libraries = libs,
  
                      extra_compile_args = cflags,
@@ -146,7 +145,7 @@
                      )
  
      wxpExtensions.append(ext)
-@@ -1053,11 +1001,8 @@
+@@ -1063,11 +1012,8 @@
          contrib_copy_tree(opj(CTRB_INC, 'canvas'), opj(CANVASINC, 'wx/canvas'))
          contrib_copy_tree(opj(CTRB_SRC, 'canvas'), CANVASLOC)
  
@@ -160,7 +159,7 @@
  
                      include_dirs = [CANVASINC] + includes,
                      define_macros = defines,
-@@ -1066,7 +1011,7 @@
+@@ -1076,7 +1022,7 @@
                      libraries = libs,
  
                      extra_compile_args = cflags,
