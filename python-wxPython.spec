@@ -2,21 +2,21 @@
 Summary:	Cross platform GUI toolkit for Python
 Summary(pl):	Wielo-platformowe narzêdzie GUI dla Pythona
 Name:		python-%{module}
-Version:	2.5.3.1
+Version:	2.5.5.1
 Release:	1
 License:	wxWindows Library v. 3 (LGPL derivative)
 Group:		Libraries/Python
 Source0:	http://dl.sourceforge.net/wxpython/%{module}-src-%{version}.tar.gz
-# Source0-md5:	3e3ed31f756a93f2d53725c4e0a18ba9
+# Source0-md5:	050602f803814a1a458634cf07ab6984
 URL:		http://wxpython.org/
-%pyrequires_eq	python-modules
-BuildRequires:	glib-devel
-BuildRequires:	python >= 2.3
-BuildRequires:	wxGTK2-unicode-devel >= 2.5.3
-BuildRequires:	wxGTK2-unicode-gl-devel >= 2.5.3
-BuildRequires:	python-devel
+BuildRequires:	gtk+2-devel
 BuildRequires:	pkgconfig
-BuildRequires:	libstdc++-devel
+BuildRequires:	python >= 2.3
+BuildRequires:	python-devel
+BuildRequires:	python-modules
+BuildRequires:	wxGTK2-unicode-devel >= 2.5.5
+BuildRequires:	wxGTK2-unicode-gl-devel >= 2.5.5
+%pyrequires_eq	python-modules
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
