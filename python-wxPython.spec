@@ -1,33 +1,33 @@
 %define		module	wxPython
 Summary:	Cross platform GUI toolkit for Python
-Summary(pl):	Wielo-platformowe narzêdzie GUI dla Pythona
+Summary(pl):	Wieloplatformowe narzêdzie GUI dla Pythona
 Name:		python-%{module}
-Version:	2.5.5.1
+Version:	2.6.0.0
 Release:	1
 License:	wxWindows Library v. 3 (LGPL derivative)
 Group:		Libraries/Python
 Source0:	http://dl.sourceforge.net/wxpython/%{module}-src-%{version}.tar.gz
-# Source0-md5:	050602f803814a1a458634cf07ab6984
+# Source0-md5:	6cb6517546e983e3d730708e0de0ed10
 URL:		http://wxpython.org/
 BuildRequires:	gtk+2-devel
 BuildRequires:	pkgconfig
 BuildRequires:	python >= 2.3
 BuildRequires:	python-devel
 BuildRequires:	python-modules
-BuildRequires:	wxGTK2-unicode-devel >= 2.5.5
-BuildRequires:	wxGTK2-unicode-gl-devel >= 2.5.5
+BuildRequires:	wxGTK2-unicode-devel >= 2.6.0
+BuildRequires:	wxGTK2-unicode-gl-devel >= 2.6.0
 %pyrequires_eq	python-modules
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 wxPython is a GUI toolkit for Python that is a wrapper around the
-wxWindows C++ GUI library. wxPython provides a large variety of window
+wxWidgets C++ GUI library. wxPython provides a large variety of window
 types and controls, all implemented with a native look and feel (and
 native runtime speed) on the platforms it is supported on.
 
 %description -l pl
 wxPython jest narzêdziem GUI dla Pythona bêd±cym nak³adk± na
-bibliotekê GUI napisan± w C++ o nazwie wxWindows. wxPython dostarcza
+bibliotekê GUI napisan± w C++ o nazwie wxWidgets. wxPython dostarcza
 du¿± liczbê typów okien, kontrolek.
 
 %package examples
@@ -37,10 +37,10 @@ Group:		Libraries/Python
 Requires:	%{name} = %{version}
 
 %description examples
-wxPython example programs
+wxPython example programs.
 
 %description examples -l pl
-Przyk³adowe programy wxPython
+Przyk³adowe programy w wxPythonie.
 
 %prep
 %setup -q -n %{module}-src-%{version}
@@ -96,6 +96,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_sitedir}/wx
 %attr(755,root,root) %{py_sitedir}/wx/*.so
 %{py_sitedir}/wx/*.py[co]
+%dir %{py_sitedir}/wx/build
+%{py_sitedir}/wx/build/*.py[co]
 %dir %{py_sitedir}/wx/lib
 %{py_sitedir}/wx/lib/*.py[co]
 %dir %{py_sitedir}/wx/lib/colourchooser
