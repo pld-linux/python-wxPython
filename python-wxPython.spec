@@ -3,7 +3,7 @@ Summary:	Cross platform GUI toolkit for Python
 Summary(pl):	Wieloplatformowe narzêdzie GUI dla Pythona
 Name:		python-%{module}
 Version:	2.6.0.0
-Release:	1
+Release:	2
 License:	wxWindows Library v. 3 (LGPL derivative)
 Group:		Libraries/Python
 Source0:	http://dl.sourceforge.net/wxpython/%{module}-src-%{version}.tar.gz
@@ -47,6 +47,7 @@ Przyk³adowe programy w wxPythonie.
 
 # kill precompiled x86 binaries
 rm -f wxPython/demo/dllwidget/test_dll.{o,so}
+rm -f wxPython/samples/embedded/embedded{,.o}
 
 # old version, not lib64-aware; use the one which comes with python.
 rm -rf wxPython/distutils
