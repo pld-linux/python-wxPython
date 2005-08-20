@@ -2,20 +2,21 @@
 Summary:	Cross platform GUI toolkit for Python
 Summary(pl):	Wieloplatformowe narzêdzie GUI dla Pythona
 Name:		python-%{module}
-Version:	2.6.0.0
-Release:	2
+Version:	2.6.1.0
+Release:	0.1
 License:	wxWindows Library v. 3 (LGPL derivative)
 Group:		Libraries/Python
 Source0:	http://dl.sourceforge.net/wxpython/%{module}-src-%{version}.tar.gz
-# Source0-md5:	6cb6517546e983e3d730708e0de0ed10
+# Source0-md5:	3408f80ef091cfb8a46be4ed70fb0475
+Patch0:		%{name}-CFLAGS.patch
 URL:		http://wxpython.org/
 BuildRequires:	gtk+2-devel
 BuildRequires:	pkgconfig
 BuildRequires:	python >= 2.3
 BuildRequires:	python-devel
 BuildRequires:	python-modules
-BuildRequires:	wxGTK2-unicode-devel >= 2.6.0
-BuildRequires:	wxGTK2-unicode-gl-devel >= 2.6.0
+BuildRequires:	wxGTK2-unicode-devel >= 2.6.1
+BuildRequires:	wxGTK2-unicode-gl-devel >= 2.6.1
 %pyrequires_eq	python-modules
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -44,10 +45,7 @@ Przyk³adowe programy w wxPythonie.
 
 %prep
 %setup -q -n %{module}-src-%{version}
-
-# kill precompiled x86 binaries
-rm -f wxPython/demo/dllwidget/test_dll.{o,so}
-rm -f wxPython/samples/embedded/embedded{,.o}
+%patch0 -p1
 
 # old version, not lib64-aware; use the one which comes with python.
 rm -rf wxPython/distutils
