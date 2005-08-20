@@ -1,0 +1,15 @@
+diff -Nur o.wxPython-src-2.6.1.0/wxPython/config.py n.wxPython-src-2.6.1.0/wxPython/config.py
+--- o.wxPython-src-2.6.1.0/wxPython/config.py	2005-06-04 18:23:06.000000000 +0200
++++ n.wxPython-src-2.6.1.0/wxPython/config.py	2005-08-19 21:40:48.000000000 +0200
+@@ -758,11 +758,6 @@
+ 
+     cflags = os.popen(WX_CONFIG + ' --cxxflags', 'r').read()[:-1]
+     cflags = cflags.split()
+-    if debug:
+-        cflags.append('-g')
+-        cflags.append('-O0')
+-    else:
+-        cflags.append('-O3')
+ 
+     lflags = os.popen(WX_CONFIG + ' --libs', 'r').read()[:-1]
+     lflags = lflags.split()
