@@ -3,11 +3,12 @@ Summary:	Cross platform GUI toolkit for Python
 Summary(pl):	Wieloplatformowe narzêdzie GUI dla Pythona
 Name:		python-%{module}
 Version:	2.6.1.0
-Release:	2
+Release:	3
 License:	wxWindows Library v. 3 (LGPL derivative)
 Group:		Libraries/Python
 Source0:	http://dl.sourceforge.net/wxpython/%{module}-src-%{version}.tar.gz
 # Source0-md5:	3408f80ef091cfb8a46be4ed70fb0475
+Source1:	%{name}-wxversion-null.py
 Patch0:		%{name}-CFLAGS.patch
 URL:		http://wxpython.org/
 BuildRequires:	gtk+2-devel
@@ -67,11 +68,16 @@ python setup.py install \
 	--optimize 2 \
 	--root=$RPM_BUILD_ROOT
 
+install %{SOURCE1} $RPM_BUILD_ROOT%{py_sitedir}/wxversion.py
+
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 cp -a demo samples $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 rm -f $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}/samples/embedded/embedded
 rm -f $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}/samples/embedded/embedded.o
 
+%py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
+%py_comp $RPM_BUILD_ROOT%{py_sitedir}
+%py_postclean
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -82,6 +88,9 @@ rm -rf $RPM_BUILD_ROOT
 #don't remove this files, because this is licensing information
 %doc docs/{licence.txt,licendoc.txt,preamble.txt}
 %attr(755,root,root) %{_bindir}/*
+
+%{py_sitedir}/wxversion.py[co]
+
 %dir %{py_sitedir}/%{module}
 %{py_sitedir}/%{module}/*.py[co]
 %dir %{py_sitedir}/%{module}/lib
