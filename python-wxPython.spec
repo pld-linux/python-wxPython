@@ -4,20 +4,22 @@ Summary(pl):	Wieloplatformowe narzêdzie GUI dla Pythona
 Name:		python-%{module}
 Version:	2.6.1.0
 Release:	3
-License:	wxWindows Library v. 3 (LGPL derivative)
+License:	wxWindows Library v3.1 (LGPL derivative)
 Group:		Libraries/Python
 Source0:	http://dl.sourceforge.net/wxpython/%{module}-src-%{version}.tar.gz
 # Source0-md5:	3408f80ef091cfb8a46be4ed70fb0475
 Source1:	%{name}-wxversion-null.py
 Patch0:		%{name}-CFLAGS.patch
 URL:		http://wxpython.org/
-BuildRequires:	gtk+2-devel
+BuildRequires:	gtk+2-devel >= 2.0.0
 BuildRequires:	pkgconfig
-BuildRequires:	python >= 2.3
+BuildRequires:	python >= 1:2.3
 BuildRequires:	python-devel
 BuildRequires:	python-modules
+BuildRequires:	rpm-pythonprov
 BuildRequires:	wxGTK2-unicode-devel >= 2.6.1
 BuildRequires:	wxGTK2-unicode-gl-devel >= 2.6.1
+# optional: libgnomeprint >= 2.8 (if wx uses it), gstreamer 0.8
 %pyrequires_eq	python-modules
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
