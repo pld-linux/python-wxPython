@@ -1,0 +1,3 @@
+- added contrib2.patch (don't compile wxContribs but use system libs)
+- use new bconds
+  and now UNICODE build work
