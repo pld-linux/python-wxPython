@@ -1,0 +1,4 @@
+- rel 3; provide simple and stupid wxversion.py that always returns that
+  everything is ok (wxversion.py is a script used in multiversion installations
+  of wxPython; unfortunatel some programs like SPE use it unconditionally even
+  of singleversion installations)
