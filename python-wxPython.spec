@@ -113,6 +113,10 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/wx/build/*.py[co]
 %dir %{py_sitedir}/wx/lib
 %{py_sitedir}/wx/lib/*.py[co]
+%dir %{py_sitedir}/wx/lib/analogclock
+%{py_sitedir}/wx/lib/analogclock/*.py[co]
+%dir %{py_sitedir}/wx/lib/analogclock/lib_setup
+%{py_sitedir}/wx/lib/analogclock/lib_setup/*.py[co]
 %dir %{py_sitedir}/wx/lib/colourchooser
 %{py_sitedir}/wx/lib/colourchooser/*.py[co]
 %dir %{py_sitedir}/wx/lib/editor
@@ -135,6 +139,9 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/wx/tools/XRCed/*.py[co]
 %doc %{py_sitedir}/wx/tools/XRCed/*.txt
 %{py_sitedir}/wx/tools/XRCed/*.xrc
+
+# -devel?
+#%{_includedir}/wx-2.6/wx/wxPython
 
 %files examples
 %defattr(644,root,root,755)
