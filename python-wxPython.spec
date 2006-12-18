@@ -13,8 +13,8 @@ Patch0:		%{name}-CFLAGS.patch
 URL:		http://wxpython.org/
 BuildRequires:	gtk+2-devel >= 2.0.0
 BuildRequires:	pkgconfig
-BuildRequires:	python >= 1:2.3
-BuildRequires:	python-devel >= 2.5
+BuildRequires:	python >= 1:2.5
+BuildRequires:	python-devel >= 1:2.5
 BuildRequires:	python-modules
 BuildRequires:	rpm-pythonprov
 BuildRequires:	wxGTK2-unicode-gl-devel >= 2.8.0
