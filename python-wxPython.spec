@@ -3,7 +3,7 @@ Summary:	Cross platform GUI toolkit for Python
 Summary(pl):	Wieloplatformowe narzêdzie GUI dla Pythona
 Name:		python-%{module}
 Version:	2.8.0.1
-Release:	0.1
+Release:	1
 License:	wxWindows Library v3.1 (LGPL derivative)
 Group:		Libraries/Python
 Source0:	http://dl.sourceforge.net/wxpython/%{module}-src-%{version}.tar.bz2
@@ -14,7 +14,7 @@ URL:		http://wxpython.org/
 BuildRequires:	gtk+2-devel >= 2.0.0
 BuildRequires:	pkgconfig
 BuildRequires:	python >= 1:2.3
-BuildRequires:	python-devel
+BuildRequires:	python-devel >= 2.5
 BuildRequires:	python-modules
 BuildRequires:	rpm-pythonprov
 BuildRequires:	wxGTK2-unicode-gl-devel >= 2.8.0
@@ -117,6 +117,8 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/wx/lib/analogclock/*.py[co]
 %dir %{py_sitedir}/wx/lib/analogclock/lib_setup
 %{py_sitedir}/wx/lib/analogclock/lib_setup/*.py[co]
+%dir %{py_sitedir}/wx/lib/art
+%{py_sitedir}/wx/lib/art/*.py[co]
 %dir %{py_sitedir}/wx/lib/colourchooser
 %{py_sitedir}/wx/lib/colourchooser/*.py[co]
 %dir %{py_sitedir}/wx/lib/editor
@@ -139,6 +141,12 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/wx/tools/XRCed/*.py[co]
 %doc %{py_sitedir}/wx/tools/XRCed/*.txt
 %{py_sitedir}/wx/tools/XRCed/*.xrc
+
+%dir %{py_sitescriptdir}/wxaddons
+%{py_sitescriptdir}/wxaddons/*.py[co]
+
+%{py_sitedir}/*.egg-info
+%{py_sitescriptdir}/*.egg-info
 
 # -devel?
 #%{_includedir}/wx-2.6/wx/wxPython
