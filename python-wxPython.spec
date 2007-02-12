@@ -1,6 +1,6 @@
 %define		module	wxPython
 Summary:	Cross platform GUI toolkit for Python
-Summary(pl):	Wieloplatformowe narzêdzie GUI dla Pythona
+Summary(pl.UTF-8):   Wieloplatformowe narzÄ™dzie GUI dla Pythona
 Name:		python-%{module}
 Version:	2.8.0.1
 Release:	1
@@ -29,22 +29,22 @@ wxWidgets C++ GUI library. wxPython provides a large variety of window
 types and controls, all implemented with a native look and feel (and
 native runtime speed) on the platforms it is supported on.
 
-%description -l pl
-wxPython jest narzêdziem GUI dla Pythona bêd±cym nak³adk± na
-bibliotekê GUI napisan± w C++ o nazwie wxWidgets. wxPython dostarcza
-du¿± liczbê typów okien, kontrolek.
+%description -l pl.UTF-8
+wxPython jest narzÄ™dziem GUI dla Pythona bÄ™dÄ…cym nakÅ‚adkÄ… na
+bibliotekÄ™ GUI napisanÄ… w C++ o nazwie wxWidgets. wxPython dostarcza
+duÅ¼Ä… liczbÄ™ typÃ³w okien, kontrolek.
 
 %package examples
 Summary:	wxPython example programs
-Summary(pl):	Przyk³adowe programy wxPython
+Summary(pl.UTF-8):   PrzykÅ‚adowe programy wxPython
 Group:		Libraries/Python
 Requires:	%{name} = %{version}-%{release}
 
 %description examples
 wxPython example programs.
 
-%description examples -l pl
-Przyk³adowe programy w wxPythonie.
+%description examples -l pl.UTF-8
+PrzykÅ‚adowe programy w wxPythonie.
 
 %prep
 %setup -q -n %{module}-src-%{version}
