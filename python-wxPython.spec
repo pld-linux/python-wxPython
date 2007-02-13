@@ -1,6 +1,6 @@
 %define		module	wxPython
 Summary:	Cross platform GUI toolkit for Python
-Summary(pl.UTF-8):   Wieloplatformowe narzędzie GUI dla Pythona
+Summary(pl.UTF-8):	Wieloplatformowe narzędzie GUI dla Pythona
 Name:		python-%{module}
 Version:	2.8.0.1
 Release:	1
@@ -36,7 +36,7 @@ dużą liczbę typów okien, kontrolek.
 
 %package examples
 Summary:	wxPython example programs
-Summary(pl.UTF-8):   Przykładowe programy wxPython
+Summary(pl.UTF-8):	Przykładowe programy wxPython
 Group:		Libraries/Python
 Requires:	%{name} = %{version}-%{release}
 
