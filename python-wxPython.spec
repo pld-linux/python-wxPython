@@ -1,12 +1,11 @@
 # TODO:
-# - check why Editra and XRCed crash on start
 # - Editra plugins are not installed, do it manually?
 %define		module	wxPython
 Summary:	Cross platform GUI toolkit for Python
 Summary(pl.UTF-8):	Wieloplatformowe narzędzie GUI dla Pythona
 Name:		python-%{module}
 Version:	2.8.9.1
-Release:	1
+Release:	2
 License:	wxWindows Library Licence 3.1 (LGPL v2+ with exception)
 Group:		Libraries/Python
 Source0:	http://dl.sourceforge.net/wxpython/%{module}-src-%{version}.tar.bz2
@@ -225,6 +224,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_sitedir}/wx/tools/Editra
 %attr(755,root,root) %{py_sitedir}/wx/tools/Editra/Editra
 %{py_sitedir}/wx/tools/Editra/__init__.py[co]
+%{py_sitedir}/wx/tools/Editra/launcher.py[co]
 %dir %{py_sitedir}/wx/tools/Editra/locale
 %lang(en) %{py_sitedir}/wx/tools/Editra/locale/en_US
 %lang(es) %{py_sitedir}/wx/tools/Editra/locale/es_ES
@@ -235,6 +235,8 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/wx/tools/Editra/src/*.py[co]
 %dir %{py_sitedir}/wx/tools/Editra/src/autocomp
 %{py_sitedir}/wx/tools/Editra/src/autocomp/*.py[co]
+%dir %{py_sitedir}/wx/tools/Editra/src/eclib
+%{py_sitedir}/wx/tools/Editra/src/eclib/*.py[co]
 %dir %{py_sitedir}/wx/tools/Editra/src/extern
 %{py_sitedir}/wx/tools/Editra/src/extern/*.py[co]
 %dir %{py_sitedir}/wx/tools/Editra/src/syntax
