@@ -4,12 +4,12 @@
 Summary:	Cross platform GUI toolkit for Python
 Summary(pl.UTF-8):	Wieloplatformowe narzędzie GUI dla Pythona
 Name:		python-%{module}
-Version:	2.8.9.1
-Release:	5
+Version:	2.8.11.0
+Release:	1
 License:	wxWindows Library Licence 3.1 (LGPL v2+ with exception)
 Group:		Libraries/Python
 Source0:	http://dl.sourceforge.net/wxpython/%{module}-src-%{version}.tar.bz2
-# Source0-md5:	4ad9a64e05529097618c7e48fbb10a84
+# Source0-md5:	63f73aae49e530852db56a31b57529fa
 Source1:	%{name}-wxversion-null.py
 Patch0:		%{name}-CFLAGS.patch
 URL:		http://wxpython.org/
@@ -196,6 +196,26 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/wx/lib/mixins/*.py[co]
 %dir %{py_sitedir}/wx/lib/ogl
 %{py_sitedir}/wx/lib/ogl/*.py[co]
+%dir %{py_sitedir}/wx/lib/agw
+%{py_sitedir}/wx/lib/agw/*.py[co]
+%dir %{py_sitedir}/wx/lib/agw/aui
+%{py_sitedir}/wx/lib/agw/aui/*.py[co]
+%dir %{py_sitedir}/wx/lib/agw/ribbon
+%{py_sitedir}/wx/lib/agw/ribbon/*.py[co]
+%dir %{py_sitedir}/wx/lib/pubsub
+%{py_sitedir}/wx/lib/pubsub/*.py[co]
+%dir %{py_sitedir}/wx/lib/pubsub/core
+%{py_sitedir}/wx/lib/pubsub/core/*.py[co]
+%dir %{py_sitedir}/wx/lib/pubsub/core/arg1
+%{py_sitedir}/wx/lib/pubsub/core/arg1/*.py[co]
+%dir %{py_sitedir}/wx/lib/pubsub/core/kwargs
+%{py_sitedir}/wx/lib/pubsub/core/kwargs/*.py[co]
+%dir %{py_sitedir}/wx/lib/pubsub/pubsub2
+%{py_sitedir}/wx/lib/pubsub/pubsub2/*.py[co]
+%dir %{py_sitedir}/wx/lib/pubsub/pubsub1
+%{py_sitedir}/wx/lib/pubsub/pubsub1/*.py[co]
+%dir %{py_sitedir}/wx/lib/pubsub/utils
+%{py_sitedir}/wx/lib/pubsub/utils/*.py[co]
 %dir %{py_sitedir}/wx/py
 %{py_sitedir}/wx/py/*.ico
 %{py_sitedir}/wx/py/*.py[co]
@@ -207,11 +227,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{py_sitedir}/wx/tools/XRCed/*.txt
 %{py_sitedir}/wx/tools/XRCed/*.xrc
 
-%dir %{py_sitescriptdir}/wxaddons
-%{py_sitescriptdir}/wxaddons/*.py[co]
+#%dir %{py_sitescriptdir}/wxaddons
+#%{py_sitescriptdir}/wxaddons/*.py[co]
 
 %{py_sitedir}/wxPython-*.egg-info
-%{py_sitescriptdir}/wxaddons-*.egg-info
+#%{py_sitescriptdir}/wxaddons-*.egg-info
 
 %files devel
 %defattr(644,root,root,755)
@@ -242,6 +262,12 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_sitedir}/wx/tools/Editra/src/syntax
 %{py_sitedir}/wx/tools/Editra/src/syntax/*.py[co]
 %{py_sitedir}/wx/tools/Editra/styles
+%dir %{py_sitedir}/wx/tools/Editra
+%{py_sitedir}/wx/tools/Editra/*.py[co]
+%dir %{py_sitedir}/wx/tools/Editra/src
+%dir %{py_sitedir}/wx/tools/Editra/src/ebmlib
+%{py_sitedir}/wx/tools/Editra/src/ebmlib/*.py[co]
+%{py_sitedir}/wx/tools/Editra/Editra.pyw
 
 %files xrced
 %defattr(644,root,root,755)
