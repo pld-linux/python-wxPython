@@ -1,5 +1,4 @@
-# TODO:
-# - Editra plugins are not installed, do it manually?
+# TODO: move Editra locale (.mo) files to system LC_MESSAGES dirs
 %define		module	wxPython
 Summary:	Cross platform GUI toolkit for Python
 Summary(pl.UTF-8):	Wieloplatformowe narzędzie GUI dla Pythona
@@ -8,7 +7,7 @@ Version:	2.8.11.0
 Release:	2
 License:	wxWindows Library Licence 3.1 (LGPL v2+ with exception)
 Group:		Libraries/Python
-Source0:	http://dl.sourceforge.net/wxpython/%{module}-src-%{version}.tar.bz2
+Source0:	http://downloads.sourceforge.net/wxpython/%{module}-src-%{version}.tar.bz2
 # Source0-md5:	63f73aae49e530852db56a31b57529fa
 Source1:	%{name}-wxversion-null.py
 Patch0:		%{name}-CFLAGS.patch
@@ -106,7 +105,8 @@ Przykładowe programy w wxPythonie.
 
 %build
 cd wxPython
-CFLAGS="%{rpmcflags}" python setup.py build \
+CFLAGS="%{rpmcflags}" \
+%{__python} setup.py build \
 	WX_CONFIG=%{_bindir}/wx-gtk2-unicode-config \
 	UNICODE=1
 
@@ -114,7 +114,7 @@ CFLAGS="%{rpmcflags}" python setup.py build \
 rm -rf $RPM_BUILD_ROOT
 cd wxPython
 
-python setup.py install \
+%{__python} setup.py install \
 	WX_CONFIG=%{_bindir}/wx-gtk2-unicode-config \
 	INSTALL_MULTIVERSION=0 \
 	UNICODE=1 \
@@ -141,7 +141,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc wxPython/docs/{CHANGES.txt,MigrationGuide.txt,README.txt} wxPython/README.editor.txt
-#don't remove this files, because this is licensing information
+#don't remove these files, because this is licensing information
 %doc docs/{licence.txt,licendoc.txt,preamble.txt}
 %attr(755,root,root) %{_bindir}/helpviewer
 %attr(755,root,root) %{_bindir}/img2png
@@ -246,10 +246,32 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/wx/tools/Editra/__init__.py[co]
 %{py_sitedir}/wx/tools/Editra/launcher.py[co]
 %dir %{py_sitedir}/wx/tools/Editra/locale
+%lang(ca) %{py_sitedir}/wx/tools/Editra/locale/ca_ES@valencia
+%lang(cs) %{py_sitedir}/wx/tools/Editra/locale/cs_CZ
+%lang(da) %{py_sitedir}/wx/tools/Editra/locale/da_DK
+%lang(de) %{py_sitedir}/wx/tools/Editra/locale/de_DE
 %lang(en) %{py_sitedir}/wx/tools/Editra/locale/en_US
 %lang(es) %{py_sitedir}/wx/tools/Editra/locale/es_ES
+%lang(fr) %{py_sitedir}/wx/tools/Editra/locale/fr_FR
+%lang(gl) %{py_sitedir}/wx/tools/Editra/locale/gl_ES
+%lang(hr) %{py_sitedir}/wx/tools/Editra/locale/hr_HR
+%lang(hu) %{py_sitedir}/wx/tools/Editra/locale/hu_HU
+%lang(it) %{py_sitedir}/wx/tools/Editra/locale/it_IT
 %lang(ja) %{py_sitedir}/wx/tools/Editra/locale/ja_JP
+%lang(lv) %{py_sitedir}/wx/tools/Editra/locale/lv_LV
+%lang(nl) %{py_sitedir}/wx/tools/Editra/locale/nl_NL
+%lang(nn) %{py_sitedir}/wx/tools/Editra/locale/nn_NO
+%lang(pl) %{py_sitedir}/wx/tools/Editra/locale/pl_PL
+%lang(pt_BR) %{py_sitedir}/wx/tools/Editra/locale/pt_BR
 %lang(ru) %{py_sitedir}/wx/tools/Editra/locale/ru_RU
+%lang(sk) %{py_sitedir}/wx/tools/Editra/locale/sk_SK
+%lang(sl) %{py_sitedir}/wx/tools/Editra/locale/sl_SI
+%lang(sr) %{py_sitedir}/wx/tools/Editra/locale/sr_RS
+%lang(sv) %{py_sitedir}/wx/tools/Editra/locale/sv_SE
+%lang(tr) %{py_sitedir}/wx/tools/Editra/locale/tr_TR
+%lang(uk) %{py_sitedir}/wx/tools/Editra/locale/uk_UA
+%lang(zh_CN) %{py_sitedir}/wx/tools/Editra/locale/zh_CN
+%lang(zh_TW) %{py_sitedir}/wx/tools/Editra/locale/zh_TW
 %{py_sitedir}/wx/tools/Editra/pixmaps
 %dir %{py_sitedir}/wx/tools/Editra/src
 %{py_sitedir}/wx/tools/Editra/src/*.py[co]
