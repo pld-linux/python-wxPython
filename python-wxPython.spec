@@ -227,11 +227,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{py_sitedir}/wx/tools/XRCed/*.txt
 %{py_sitedir}/wx/tools/XRCed/*.xrc
 
-#%dir %{py_sitescriptdir}/wxaddons
-#%{py_sitescriptdir}/wxaddons/*.py[co]
-
 %{py_sitedir}/wxPython-*.egg-info
-#%{py_sitescriptdir}/wxaddons-*.egg-info
 
 %files devel
 %defattr(644,root,root,755)
