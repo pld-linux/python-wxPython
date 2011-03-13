@@ -4,7 +4,7 @@ Summary:	Cross platform GUI toolkit for Python
 Summary(pl.UTF-8):	Wieloplatformowe narzędzie GUI dla Pythona
 Name:		python-%{module}
 Version:	2.8.11.0
-Release:	2
+Release:	3
 License:	wxWindows Library Licence 3.1 (LGPL v2+ with exception)
 Group:		Libraries/Python
 Source0:	http://downloads.sourceforge.net/wxpython/%{module}-src-%{version}.tar.bz2
@@ -241,6 +241,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_sitedir}/wx/tools/Editra/Editra
 %{py_sitedir}/wx/tools/Editra/__init__.py[co]
 %{py_sitedir}/wx/tools/Editra/launcher.py[co]
+%{py_sitedir}/wx/tools/Editra/Editra.pyw
 %dir %{py_sitedir}/wx/tools/Editra/locale
 %lang(ca) %{py_sitedir}/wx/tools/Editra/locale/ca_ES@valencia
 %lang(cs) %{py_sitedir}/wx/tools/Editra/locale/cs_CZ
@@ -279,13 +280,9 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/wx/tools/Editra/src/extern/*.py[co]
 %dir %{py_sitedir}/wx/tools/Editra/src/syntax
 %{py_sitedir}/wx/tools/Editra/src/syntax/*.py[co]
-%{py_sitedir}/wx/tools/Editra/styles
-%dir %{py_sitedir}/wx/tools/Editra
-%{py_sitedir}/wx/tools/Editra/*.py[co]
-%dir %{py_sitedir}/wx/tools/Editra/src
 %dir %{py_sitedir}/wx/tools/Editra/src/ebmlib
 %{py_sitedir}/wx/tools/Editra/src/ebmlib/*.py[co]
-%{py_sitedir}/wx/tools/Editra/Editra.pyw
+%{py_sitedir}/wx/tools/Editra/styles
 
 %files xrced
 %defattr(644,root,root,755)
