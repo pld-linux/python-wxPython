@@ -18,7 +18,7 @@ BuildRequires:	python >= 1:2.5
 BuildRequires:	python-devel >= 1:2.5
 BuildRequires:	python-modules
 BuildRequires:	rpm-pythonprov
-BuildRequires:	wxGTK2-unicode-gl-devel >= 2.8.9
+BuildRequires:	wxGTK2-unicode-gl-devel >= 2.8.11
 # optional: libgnomeprint >= 2.8 (if wx uses it), gstreamer 0.8
 %pyrequires_eq	python-modules
 Requires:	wxGTK2-unicode-gl >= 2.8.9
