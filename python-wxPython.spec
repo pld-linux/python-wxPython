@@ -3,12 +3,12 @@
 Summary:	Cross platform GUI toolkit for Python
 Summary(pl.UTF-8):	Wieloplatformowe narzędzie GUI dla Pythona
 Name:		python-%{module}
-Version:	2.8.11.0
-Release:	3
+Version:	2.8.12.1
+Release:	1
 License:	wxWindows Library Licence 3.1 (LGPL v2+ with exception)
 Group:		Libraries/Python
 Source0:	http://downloads.sourceforge.net/wxpython/%{module}-src-%{version}.tar.bz2
-# Source0-md5:	63f73aae49e530852db56a31b57529fa
+# Source0-md5:	8c06c5941477beee213b4f2fa78be620
 Source1:	%{name}-wxversion-null.py
 Patch0:		%{name}-CFLAGS.patch
 URL:		http://wxpython.org/
@@ -200,6 +200,8 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/wx/lib/agw/*.py[co]
 %dir %{py_sitedir}/wx/lib/agw/aui
 %{py_sitedir}/wx/lib/agw/aui/*.py[co]
+%dir %{py_sitedir}/wx/lib/agw/persist
+%{py_sitedir}/wx/lib/agw/persist/*.py[co]
 %dir %{py_sitedir}/wx/lib/agw/ribbon
 %{py_sitedir}/wx/lib/agw/ribbon/*.py[co]
 %dir %{py_sitedir}/wx/lib/pubsub
@@ -238,7 +240,6 @@ rm -rf $RPM_BUILD_ROOT
 %doc wxPython/wx/tools/Editra/{AUTHORS,CHANGELOG,COPYING,FAQ,NEWS,README,THANKS,TODO,docs/*.txt}
 %attr(755,root,root) %{_bindir}/editra
 %dir %{py_sitedir}/wx/tools/Editra
-%attr(755,root,root) %{py_sitedir}/wx/tools/Editra/Editra
 %{py_sitedir}/wx/tools/Editra/__init__.py[co]
 %{py_sitedir}/wx/tools/Editra/launcher.py[co]
 %{py_sitedir}/wx/tools/Editra/Editra.pyw
@@ -278,6 +279,20 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/wx/tools/Editra/src/eclib/*.py[co]
 %dir %{py_sitedir}/wx/tools/Editra/src/extern
 %{py_sitedir}/wx/tools/Editra/src/extern/*.py[co]
+%dir %{py_sitedir}/wx/tools/Editra/src/extern/aui
+%{py_sitedir}/wx/tools/Editra/src/extern/aui/*.py[co]
+%dir %{py_sitedir}/wx/tools/Editra/src/extern/dexml
+%{py_sitedir}/wx/tools/Editra/src/extern/dexml/*.py[co]
+%dir %{py_sitedir}/wx/tools/Editra/src/extern/pygments
+%{py_sitedir}/wx/tools/Editra/src/extern/pygments/*.py[co]
+%dir %{py_sitedir}/wx/tools/Editra/src/extern/pygments/filters
+%{py_sitedir}/wx/tools/Editra/src/extern/pygments/filters/*.py[co]
+%dir %{py_sitedir}/wx/tools/Editra/src/extern/pygments/formatters
+%{py_sitedir}/wx/tools/Editra/src/extern/pygments/formatters/*.py[co]
+%dir %{py_sitedir}/wx/tools/Editra/src/extern/pygments/lexers
+%{py_sitedir}/wx/tools/Editra/src/extern/pygments/lexers/*.py[co]
+%dir %{py_sitedir}/wx/tools/Editra/src/extern/pygments/styles
+%{py_sitedir}/wx/tools/Editra/src/extern/pygments/styles/*.py[co]
 %dir %{py_sitedir}/wx/tools/Editra/src/syntax
 %{py_sitedir}/wx/tools/Editra/src/syntax/*.py[co]
 %dir %{py_sitedir}/wx/tools/Editra/src/ebmlib
