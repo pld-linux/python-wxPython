@@ -11,6 +11,7 @@ Source0:	http://downloads.sourceforge.net/wxpython/%{module}-src-%{version}.tar.
 # Source0-md5:	8c06c5941477beee213b4f2fa78be620
 Source1:	%{name}-wxversion-null.py
 Patch0:		%{name}-CFLAGS.patch
+Patch1:		%{name}-format.patch
 URL:		http://wxpython.org/
 BuildRequires:	gtk+2-devel >= 1:2.0.0
 BuildRequires:	pkgconfig
@@ -102,6 +103,7 @@ Przykładowe programy w wxPythonie.
 %prep
 %setup -q -n %{module}-src-%{version}
 %patch0 -p1
+%patch1 -p1
 
 %build
 cd wxPython
