@@ -1,15 +1,14 @@
-diff -Nur o.wxPython-src-2.6.1.0/wxPython/config.py n.wxPython-src-2.6.1.0/wxPython/config.py
---- o.wxPython-src-2.6.1.0/wxPython/config.py	2005-06-04 18:23:06.000000000 +0200
-+++ n.wxPython-src-2.6.1.0/wxPython/config.py	2005-08-19 21:40:48.000000000 +0200
-@@ -758,11 +758,6 @@
+--- wxPython-src-3.0.0.0/wxPython/config.py~	2013-12-16 14:39:50.000000000 +0100
++++ wxPython-src-3.0.0.0/wxPython/config.py	2014-01-15 09:19:01.973976105 +0100
+@@ -1030,11 +1030,6 @@
  
-     cflags = os.popen(WX_CONFIG + ' --cxxflags', 'r').read()[:-1]
+     cflags = getWxConfigValue('--cxxflags')
      cflags = cflags.split()
 -    if debug:
--        cflags.append('-g')
+-        cflags.append('-ggdb')
 -        cflags.append('-O0')
 -    else:
 -        cflags.append('-O3')
  
-     lflags = os.popen(WX_CONFIG + ' --libs', 'r').read()[:-1]
-     lflags = lflags.split()
+     lflags = getWxConfigValue('--libs')
+     MONOLITHIC = (lflags.find("_xrc") == -1)

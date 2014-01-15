@@ -174,8 +174,8 @@
    }
  }
  
---- wxPython-src-2.8.12.1/wxPython/contrib/glcanvas/gtk/glcanvas_wrap.cpp.orig	2011-07-14 04:25:41.000000000 +0200
-+++ wxPython-src-2.8.12.1/wxPython/contrib/glcanvas/gtk/glcanvas_wrap.cpp	2013-11-03 18:13:51.981832351 +0100
+--- wxPython-src-2.8.12.1/wxPython/src/gtk/glcanvas_wrap.cpp.orig	2011-07-14 04:25:41.000000000 +0200
++++ wxPython-src-2.8.12.1/wxPython/src/gtk/glcanvas_wrap.cpp	2013-11-03 18:13:51.981832351 +0100
 @@ -861,7 +861,7 @@
      Py_DECREF(old_str);
      Py_DECREF(value);
@@ -196,8 +196,41 @@
    }
  }
  
---- wxPython-src-2.8.12.1/wxPython/contrib/stc/gtk/stc_wrap.cpp.orig	2011-07-14 04:25:43.000000000 +0200
-+++ wxPython-src-2.8.12.1/wxPython/contrib/stc/gtk/stc_wrap.cpp	2013-11-03 18:15:21.091828613 +0100
+--- wxPython-src-2.8.12.1/wxPython/src/gtk/stc_wrap.cpp.orig	2011-07-14 04:25:43.000000000 +0200
++++ wxPython-src-2.8.12.1/wxPython/src/gtk/stc_wrap.cpp	2013-11-03 18:15:21.091828613 +0100
+@@ -861,7 +861,7 @@
+     Py_DECREF(old_str);
+     Py_DECREF(value);
+   } else {
+-    PyErr_Format(PyExc_RuntimeError, mesg);
++    PyErr_Format(PyExc_RuntimeError, "%s", mesg);
+   }
+ }
+ 
+--- wxPython-src-3.0.0.0/wxPython/src/gtk/dataview_wrap.cpp~	2013-12-16 14:51:45.000000000 +0100
++++ wxPython-src-3.0.0.0/wxPython/src/gtk/dataview_wrap.cpp	2014-01-15 12:42:47.698683686 +0100
+@@ -861,7 +861,7 @@
+     Py_DECREF(old_str);
+     Py_DECREF(value);
+   } else {
+-    PyErr_Format(PyExc_RuntimeError, mesg);
++    PyErr_Format(PyExc_RuntimeError, "%s", mesg);
+   }
+ }
+ 
+--- wxPython-src-3.0.0.0/wxPython/src/gtk/propgrid_wrap.cpp~	2013-12-16 14:52:01.000000000 +0100
++++ wxPython-src-3.0.0.0/wxPython/src/gtk/propgrid_wrap.cpp	2014-01-15 12:59:30.358303483 +0100
+@@ -861,7 +861,7 @@
+     Py_DECREF(old_str);
+     Py_DECREF(value);
+   } else {
+-    PyErr_Format(PyExc_RuntimeError, mesg);
++    PyErr_Format(PyExc_RuntimeError, "%s", mesg);
+   }
+ }
+ 
+--- wxPython-src-3.0.0.0/wxPython/src/gtk/html2_wrap.cpp~	2013-12-28 10:28:56.000000000 +0100
++++ wxPython-src-3.0.0.0/wxPython/src/gtk/html2_wrap.cpp	2014-01-15 13:09:44.188126337 +0100
 @@ -861,7 +861,7 @@
      Py_DECREF(old_str);
      Py_DECREF(value);

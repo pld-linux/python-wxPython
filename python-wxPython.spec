@@ -3,12 +3,12 @@
 Summary:	Cross platform GUI toolkit for Python
 Summary(pl.UTF-8):	Wieloplatformowe narzędzie GUI dla Pythona
 Name:		python-%{module}
-Version:	2.8.12.1
-Release:	2
+Version:	3.0.0.0
+Release:	1
 License:	wxWindows Library Licence 3.1 (LGPL v2+ with exception)
 Group:		Libraries/Python
 Source0:	http://downloads.sourceforge.net/wxpython/%{module}-src-%{version}.tar.bz2
-# Source0-md5:	8c06c5941477beee213b4f2fa78be620
+# Source0-md5:	f5e32c7d85dc261ba777e113c3b7e365
 Source1:	%{name}-wxversion-null.py
 Patch0:		%{name}-CFLAGS.patch
 Patch1:		%{name}-format.patch
@@ -158,19 +158,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %{py_sitedir}/wxversion.py[co]
 
-%dir %{py_sitedir}/%{module}
-%{py_sitedir}/%{module}/*.py[co]
-%dir %{py_sitedir}/%{module}/lib
-%{py_sitedir}/%{module}/lib/*.py[co]
-%dir %{py_sitedir}/%{module}/lib/colourchooser
-%{py_sitedir}/%{module}/lib/colourchooser/*.py[co]
-%dir %{py_sitedir}/%{module}/lib/editor
-%{py_sitedir}/%{module}/lib/editor/*.py[co]
-%dir %{py_sitedir}/%{module}/lib/mixins
-%{py_sitedir}/%{module}/lib/mixins/*.py[co]
-%dir %{py_sitedir}/%{module}/tools
-%{py_sitedir}/%{module}/tools/*.py[co]
-
 %dir %{py_sitedir}/wx
 %attr(755,root,root) %{py_sitedir}/wx/*.so
 %{py_sitedir}/wx/*.py[co]
@@ -200,12 +187,15 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/wx/lib/ogl/*.py[co]
 %dir %{py_sitedir}/wx/lib/agw
 %{py_sitedir}/wx/lib/agw/*.py[co]
+%{py_sitedir}/wx/lib/agw/data
 %dir %{py_sitedir}/wx/lib/agw/aui
 %{py_sitedir}/wx/lib/agw/aui/*.py[co]
 %dir %{py_sitedir}/wx/lib/agw/persist
 %{py_sitedir}/wx/lib/agw/persist/*.py[co]
 %dir %{py_sitedir}/wx/lib/agw/ribbon
 %{py_sitedir}/wx/lib/agw/ribbon/*.py[co]
+%dir %{py_sitedir}/wx/lib/pdfviewer
+%{py_sitedir}/wx/lib/pdfviewer/*.py[co]
 %dir %{py_sitedir}/wx/lib/pubsub
 %{py_sitedir}/wx/lib/pubsub/*.py[co]
 %dir %{py_sitedir}/wx/lib/pubsub/core
@@ -214,10 +204,6 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/wx/lib/pubsub/core/arg1/*.py[co]
 %dir %{py_sitedir}/wx/lib/pubsub/core/kwargs
 %{py_sitedir}/wx/lib/pubsub/core/kwargs/*.py[co]
-%dir %{py_sitedir}/wx/lib/pubsub/pubsub2
-%{py_sitedir}/wx/lib/pubsub/pubsub2/*.py[co]
-%dir %{py_sitedir}/wx/lib/pubsub/pubsub1
-%{py_sitedir}/wx/lib/pubsub/pubsub1/*.py[co]
 %dir %{py_sitedir}/wx/lib/pubsub/utils
 %{py_sitedir}/wx/lib/pubsub/utils/*.py[co]
 %dir %{py_sitedir}/wx/py
@@ -235,7 +221,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%{_includedir}/wx-2.8/wx/wxPython
+%{_includedir}/wx-3.0/wx/wxPython
 
 %files editra
 %defattr(644,root,root,755)
@@ -263,6 +249,7 @@ rm -rf $RPM_BUILD_ROOT
 %lang(nn) %{py_sitedir}/wx/tools/Editra/locale/nn_NO
 %lang(pl) %{py_sitedir}/wx/tools/Editra/locale/pl_PL
 %lang(pt_BR) %{py_sitedir}/wx/tools/Editra/locale/pt_BR
+%lang(ro) %{py_sitedir}/wx/tools/Editra/locale/ro_RO
 %lang(ru) %{py_sitedir}/wx/tools/Editra/locale/ru_RU
 %lang(sk) %{py_sitedir}/wx/tools/Editra/locale/sk_SK
 %lang(sl) %{py_sitedir}/wx/tools/Editra/locale/sl_SI
@@ -281,20 +268,6 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/wx/tools/Editra/src/eclib/*.py[co]
 %dir %{py_sitedir}/wx/tools/Editra/src/extern
 %{py_sitedir}/wx/tools/Editra/src/extern/*.py[co]
-%dir %{py_sitedir}/wx/tools/Editra/src/extern/aui
-%{py_sitedir}/wx/tools/Editra/src/extern/aui/*.py[co]
-%dir %{py_sitedir}/wx/tools/Editra/src/extern/dexml
-%{py_sitedir}/wx/tools/Editra/src/extern/dexml/*.py[co]
-%dir %{py_sitedir}/wx/tools/Editra/src/extern/pygments
-%{py_sitedir}/wx/tools/Editra/src/extern/pygments/*.py[co]
-%dir %{py_sitedir}/wx/tools/Editra/src/extern/pygments/filters
-%{py_sitedir}/wx/tools/Editra/src/extern/pygments/filters/*.py[co]
-%dir %{py_sitedir}/wx/tools/Editra/src/extern/pygments/formatters
-%{py_sitedir}/wx/tools/Editra/src/extern/pygments/formatters/*.py[co]
-%dir %{py_sitedir}/wx/tools/Editra/src/extern/pygments/lexers
-%{py_sitedir}/wx/tools/Editra/src/extern/pygments/lexers/*.py[co]
-%dir %{py_sitedir}/wx/tools/Editra/src/extern/pygments/styles
-%{py_sitedir}/wx/tools/Editra/src/extern/pygments/styles/*.py[co]
 %dir %{py_sitedir}/wx/tools/Editra/src/syntax
 %{py_sitedir}/wx/tools/Editra/src/syntax/*.py[co]
 %dir %{py_sitedir}/wx/tools/Editra/src/ebmlib
