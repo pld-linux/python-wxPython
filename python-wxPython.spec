@@ -4,7 +4,7 @@ Summary:	Cross platform GUI toolkit for Python
 Summary(pl.UTF-8):	Wieloplatformowe narzędzie GUI dla Pythona
 Name:		python-%{module}
 Version:	3.0.0.0
-Release:	2
+Release:	3
 License:	wxWindows Library Licence 3.1 (LGPL v2+ with exception)
 Group:		Libraries/Python
 Source0:	http://downloads.sourceforge.net/wxpython/%{module}-src-%{version}.tar.bz2
@@ -21,7 +21,7 @@ BuildRequires:	python-modules
 BuildRequires:	rpm-pythonprov
 BuildRequires:	wxGTK2-unicode-gl-devel >= 2.8.11
 # optional: libgnomeprint >= 2.8 (if wx uses it), gstreamer 0.8
-%pyrequires_eq	python-modules
+Requires:	python-modules
 Requires:	wxGTK2-unicode-gl >= 2.8.9
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -93,6 +93,9 @@ Summary:	wxPython example programs
 Summary(pl.UTF-8):	Przykładowe programy wxPython
 Group:		Libraries/Python
 Requires:	%{name} = %{version}-%{release}
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
 
 %description examples
 wxPython example programs.
@@ -123,7 +126,7 @@ cd wxPython
 	--optimize 2 \
 	--root=$RPM_BUILD_ROOT
 
-install %{SOURCE1} $RPM_BUILD_ROOT%{py_sitedir}/wxversion.py
+cp -p %{SOURCE1} $RPM_BUILD_ROOT%{py_sitedir}/wxversion.py
 
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 cp -a demo samples $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
