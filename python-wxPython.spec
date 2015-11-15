@@ -4,7 +4,7 @@ Summary:	Cross platform GUI toolkit for Python
 Summary(pl.UTF-8):	Wieloplatformowe narzędzie GUI dla Pythona
 Name:		python-%{module}
 Version:	3.0.2.0
-Release:	1
+Release:	2
 License:	wxWindows Library Licence 3.1 (LGPL v2+ with exception)
 Group:		Libraries/Python
 Source0:	http://downloads.sourceforge.net/wxpython/%{module}-src-%{version}.tar.bz2
