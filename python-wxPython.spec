@@ -110,8 +110,7 @@ Przykładowe programy w wxPythonie.
 
 %build
 cd wxPython
-CFLAGS="%{rpmcflags}" \
-%{__python} setup.py build \
+%py_build \
 	WX_CONFIG=%{_bindir}/wx-gtk2-unicode-config \
 	UNICODE=1
 
@@ -119,7 +118,7 @@ CFLAGS="%{rpmcflags}" \
 rm -rf $RPM_BUILD_ROOT
 cd wxPython
 
-%{__python} setup.py install \
+%py_install \
 	WX_CONFIG=%{_bindir}/wx-gtk2-unicode-config \
 	INSTALL_MULTIVERSION=0 \
 	UNICODE=1 \
