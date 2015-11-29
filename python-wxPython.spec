@@ -13,6 +13,7 @@ Source1:	%{name}-wxversion-null.py
 Patch0:		%{name}-CFLAGS.patch
 Patch1:		%{name}-format.patch
 URL:		http://wxpython.org/
+BuildRequires:	rpmbuild(macros) >= 1.710
 BuildRequires:	gtk+2-devel >= 1:2.0.0
 BuildRequires:	pkgconfig
 BuildRequires:	python >= 1:2.5
@@ -54,6 +55,7 @@ Summary:	Editra editor
 Summary(pl.UTF-8):	Edytor Editra
 Group:		Development/Tools
 URL:		http://editra.org/
+BuildRequires:	rpmbuild(macros) >= 1.710
 Requires:	%{name} = %{version}-%{release}
 
 %description editra
@@ -75,6 +77,7 @@ Summary(pl.UTF-8):	XRCed - edytor plików XRC
 License:	BSD
 Group:		Development/Tools
 URL:		http://xrced.sourceforge.net/
+BuildRequires:	rpmbuild(macros) >= 1.710
 Requires:	%{name} = %{version}-%{release}
 
 %description xrced
