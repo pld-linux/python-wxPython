@@ -96,9 +96,7 @@ Summary:	wxPython example programs
 Summary(pl.UTF-8):	Przykładowe programy wxPython
 Group:		Libraries/Python
 Requires:	%{name} = %{version}-%{release}
-%if "%{_rpmversion}" >= "5"
 BuildArch:	noarch
-%endif
 
 %description examples
 wxPython example programs.
