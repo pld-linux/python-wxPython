@@ -7,19 +7,20 @@ Version:	3.0.2.0
 Release:	4
 License:	wxWindows Library Licence 3.1 (LGPL v2+ with exception)
 Group:		Libraries/Python
-Source0:	http://downloads.sourceforge.net/wxpython/%{module}-src-%{version}.tar.bz2
+Source0:	https://downloads.sourceforge.net/wxpython/%{module}-src-%{version}.tar.bz2
 # Source0-md5:	922b02ff2c0202a7bf1607c98bbbbc04
 Source1:	%{name}-wxversion-null.py
 Patch0:		%{name}-CFLAGS.patch
 Patch1:		%{name}-format.patch
-URL:		http://wxpython.org/
-BuildRequires:	rpmbuild(macros) >= 1.710
+URL:		https://wxpython.org/
 BuildRequires:	gtk+2-devel >= 1:2.0.0
 BuildRequires:	pkgconfig
 BuildRequires:	python >= 1:2.5
 BuildRequires:	python-devel >= 1:2.5
 BuildRequires:	python-modules
+BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpm-pythonprov
+BuildRequires:	rpmbuild(macros) >= 1.714
 BuildRequires:	wxGTK2-unicode-gl-devel >= 2.8.11
 # optional: libgnomeprint >= 2.8 (if wx uses it), gstreamer 0.8
 Requires:	python-modules
@@ -130,11 +131,11 @@ cp -p %{SOURCE1} $RPM_BUILD_ROOT%{py_sitedir}/wxversion.py
 
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 cp -a demo samples $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
-rm -f $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}/samples/embedded/embedded
-rm -f $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}/samples/embedded/embedded.o
+%{__rm} $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}/samples/embedded/embedded
+%{__rm} $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}/samples/embedded/embedded.o
 
-mv $RPM_BUILD_ROOT%{py_sitedir}/wx/lib/editor/README.txt README.editor.txt
-rm -r $RPM_BUILD_ROOT%{py_sitedir}/wx/tools/Editra/{AUTHORS,CHANGELOG,COPYING,FAQ,INSTALL,MANIFEST.in,NEWS,README,THANKS,TODO,docs/*.txt,setup.py*,tests,plugins/*.egg}
+%{__mv} $RPM_BUILD_ROOT%{py_sitedir}/wx/lib/editor/README.txt README.editor.txt
+%{__rm} -r $RPM_BUILD_ROOT%{py_sitedir}/wx/tools/Editra/{AUTHORS,CHANGELOG,COPYING,FAQ,INSTALL,MANIFEST.in,NEWS,README,THANKS,TODO,docs/*.txt,setup.py*,tests,plugins/*.egg}
 
 %py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
 %py_comp $RPM_BUILD_ROOT%{py_sitedir}
