@@ -1,14 +1,14 @@
---- wxPython-src-3.0.0.0/wxPython/config.py~	2013-12-16 14:39:50.000000000 +0100
-+++ wxPython-src-3.0.0.0/wxPython/config.py	2014-01-15 09:19:01.973976105 +0100
-@@ -1030,11 +1030,6 @@
+--- wxPython-4.1.0/buildtools/config.py.orig	2024-11-17 13:47:19.336769778 +0100
++++ wxPython-4.1.0/buildtools/config.py	2024-11-17 13:47:21.916755801 +0100
+@@ -221,11 +221,6 @@ class Configuration(object):
  
-     cflags = getWxConfigValue('--cxxflags')
-     cflags = cflags.split()
--    if debug:
--        cflags.append('-ggdb')
--        cflags.append('-O0')
--    else:
--        cflags.append('-O3')
+             self.cflags = self.getWxConfigValue('--cxxflags')
+             self.cflags = self.cflags.split()
+-            if self.debug:
+-                self.cflags.append('-ggdb')
+-                self.cflags.append('-O0')
+-            else:
+-                self.cflags.append('-O3')
  
-     lflags = getWxConfigValue('--libs')
-     MONOLITHIC = (lflags.find("_xrc") == -1)
+             lflags = self.getWxConfigValue('--libs')
+             self.MONOLITHIC = (lflags.find("_xrc") == -1)

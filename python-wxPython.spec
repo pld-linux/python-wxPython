@@ -1,30 +1,46 @@
-# TODO: move Editra locale (.mo) files to system LC_MESSAGES dirs
+#
+# Conditional build:
+%bcond_with	system_wx	# system wxWidgets (3.0.x)
+
 %define		module	wxPython
 Summary:	Cross platform GUI toolkit for Python
 Summary(pl.UTF-8):	Wieloplatformowe narzędzie GUI dla Pythona
 Name:		python-%{module}
-Version:	3.0.2.0
-Release:	4
+# keep 4.0.x here for python2 support
+Version:	4.0.7.post2
+Release:	1
 License:	wxWindows Library Licence 3.1 (LGPL v2+ with exception)
 Group:		Libraries/Python
-Source0:	https://downloads.sourceforge.net/wxpython/%{module}-src-%{version}.tar.bz2
-# Source0-md5:	922b02ff2c0202a7bf1607c98bbbbc04
+#Source0Download: https://pypi.org/simple/wxpython/
+Source0:	https://files.pythonhosted.org/packages/source/w/wxPython/%{module}-%{version}.tar.gz
+# Source0-md5:	e10f59d8e1565b034c4933334ea1eb19
 Source1:	%{name}-wxversion-null.py
 Patch0:		%{name}-CFLAGS.patch
-Patch1:		%{name}-format.patch
+Patch1:		%{name}-setup.patch
 URL:		https://wxpython.org/
-BuildRequires:	gtk+2-devel >= 1:2.0.0
+BuildRequires:	gtk+3-devel >= 3.0.0
 BuildRequires:	pkgconfig
-BuildRequires:	python >= 1:2.5
-BuildRequires:	python-devel >= 1:2.5
-BuildRequires:	python-modules
+BuildRequires:	python >= 1:2.7
+BuildRequires:	python-devel >= 1:2.7
+BuildRequires:	python-modules >= 1:2.7
+BuildRequires:	python-setuptools
 BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
-BuildRequires:	wxGTK2-unicode-gl-devel >= 2.8.11
+%if %{with system_wx}
+BuildRequires:	wxGTK3-unicode-devel >= 3.0.0
+BuildRequires:	wxGTK3-unicode-gl-devel >= 3.0.0
+BuildRequires:	wxGTK3-unicode-devel < 3.2
+BuildRequires:	wxGTK3-unicode-gl-devel < 3.2
+%endif
 # optional: libgnomeprint >= 2.8 (if wx uses it), gstreamer 0.8
-Requires:	python-modules
-Requires:	wxGTK2-unicode-gl >= 2.8.9
+Requires:	python-modules >= 1:2.7
+%if %{with system_wx}
+Requires:	wxGTK3-unicode >= 3.0.0
+Requires:	wxGTK3-unicode-gl >= 2.8.9
+%endif
+Obsoletes:	python-wxPython-editra < 4
+Obsoletes:	python-wxPython-xrced < 4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -51,47 +67,6 @@ Header and SWIG files for wxPython.
 %description devel -l pl.UTF-8
 Pliki nagłówkowe i SWIG dla wxPythona.
 
-%package editra
-Summary:	Editra editor
-Summary(pl.UTF-8):	Edytor Editra
-Group:		Development/Tools
-URL:		http://editra.org/
-BuildRequires:	rpmbuild(macros) >= 1.710
-Requires:	%{name} = %{version}-%{release}
-
-%description editra
-Editra is a multi-platform text editor with an implementation that
-focuses on creating an easy to use interface and features that aid in
-code development. Currently it supports syntax highlighting and
-variety of other useful features for over 50 programming languages.
-
-%description editra -l pl.UTF-8
-Editra to wieloplatformowy edytor tekstu, którego implementacja skupia
-się na stworzeniu łatwego w użyciu interfejsu i możliwościach
-pomagających w tworzeniu kodu. Aktualnie obsługuje podświetlanie
-składni i różne przydatne ułatwienia dla ponad 50 języków
-programowania.
-
-%package xrced
-Summary:	XRCed - XRC files editor
-Summary(pl.UTF-8):	XRCed - edytor plików XRC
-License:	BSD
-Group:		Development/Tools
-URL:		http://xrced.sourceforge.net/
-BuildRequires:	rpmbuild(macros) >= 1.710
-Requires:	%{name} = %{version}-%{release}
-
-%description xrced
-XRCed is a simple resource editor for wxWidgets/wxPython GUI
-development which supports creating and editing files in XRC format.
-It is written in Python and uses wxPython GUI toolkit.
-
-%description xrced -l pl.UTF-8
-XRCed to prosty edytor zasobów do programowania w środowisku
-graficznym wxWidgets/wxPython, pozwalający na tworzenie i
-modyfikowanie plików w formacie XRC. Został napisany w Pythonie i
-wykorzystuje toolkit graficzny wxPython.
-
 %package examples
 Summary:	wxPython example programs
 Summary(pl.UTF-8):	Przykładowe programy wxPython
@@ -106,36 +81,47 @@ wxPython example programs.
 Przykładowe programy w wxPythonie.
 
 %prep
-%setup -q -n %{module}-src-%{version}
+%setup -q -n %{module}-%{version}
 %patch -P0 -p1
 %patch -P1 -p1
 
+%{__sed} -i -e '1s,/usr/bin/env python,%{__python},' demo/{__main__,demo,run}.py samples/mainloop/mainloop.py
+
 %build
-cd wxPython
-%py_build \
-	WX_CONFIG=%{_bindir}/wx-gtk2-unicode-config \
-	UNICODE=1
+%if %{with system_wx}
+export WX_CONFIG=%{_bindir}/wx-gtk3-unicode-config
+%endif
+%py_build
 
 %install
 rm -rf $RPM_BUILD_ROOT
-cd wxPython
 
-%py_install \
-	WX_CONFIG=%{_bindir}/wx-gtk2-unicode-config \
-	INSTALL_MULTIVERSION=0 \
-	UNICODE=1 \
-	--optimize 2 \
-	--root=$RPM_BUILD_ROOT
+%if %{with system_wx}
+export WX_CONFIG=%{_bindir}/wx-gtk3-unicode-config
+%endif
+
+%py_install
+
+for bin in $RPM_BUILD_ROOT%{_bindir}/* ; do
+	%{__mv} "$bin" "${bin}-2"
+done
 
 cp -p %{SOURCE1} $RPM_BUILD_ROOT%{py_sitedir}/wxversion.py
 
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 cp -a demo samples $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
-%{__rm} $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}/samples/embedded/embedded
-%{__rm} $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}/samples/embedded/embedded.o
 
 %{__mv} $RPM_BUILD_ROOT%{py_sitedir}/wx/lib/editor/README.txt README.editor.txt
-%{__rm} -r $RPM_BUILD_ROOT%{py_sitedir}/wx/tools/Editra/{AUTHORS,CHANGELOG,COPYING,FAQ,INSTALL,MANIFEST.in,NEWS,README,THANKS,TODO,docs/*.txt,setup.py*,tests,plugins/*.egg}
+%{__mv} $RPM_BUILD_ROOT%{py_sitedir}/wx/lib/plot/CHANGELOG.md CHANGELOG.plot.md
+%{__mv} $RPM_BUILD_ROOT%{py_sitedir}/wx/lib/plot/README.md README.plot.md
+%{__mv} $RPM_BUILD_ROOT%{py_sitedir}/wx/lib/pubsub/LICENSE_BSD_Simple.txt LICENSE_BSD_Simple.pubsub.txt
+%{__mv} $RPM_BUILD_ROOT%{py_sitedir}/wx/lib/pubsub/README_WxPython.txt README_WxPython.pubsub.txt
+%{__mv} $RPM_BUILD_ROOT%{py_sitedir}/wx/lib/pubsub/RELEASE_NOTES.txt RELEASE_NOTES.pubsub.txt
+%{__rm} -r $RPM_BUILD_ROOT%{py_sitedir}/wx/lib/plot/examples
+%{__rm} -r $RPM_BUILD_ROOT%{py_sitedir}/wx/py/tests
+
+%{__mv} $RPM_BUILD_ROOT%{py_sitedir}/wx/locale/{gl_ES,gl}
+%{__mv} $RPM_BUILD_ROOT%{py_sitedir}/wx/locale/{ko_KR,ko}
 
 %py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
 %py_comp $RPM_BUILD_ROOT%{py_sitedir}
@@ -146,29 +132,76 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc wxPython/docs/{CHANGES.txt,MigrationGuide.txt,README.txt} wxPython/README.editor.txt
-#don't remove these files, because this is licensing information
-%doc docs/{licence.txt,licendoc.txt,preamble.txt}
-%attr(755,root,root) %{_bindir}/helpviewer
-%attr(755,root,root) %{_bindir}/img2png
-%attr(755,root,root) %{_bindir}/img2py
-%attr(755,root,root) %{_bindir}/img2xpm
-%attr(755,root,root) %{_bindir}/pyalacarte
-%attr(755,root,root) %{_bindir}/pyalamode
-%attr(755,root,root) %{_bindir}/pycrust
-%attr(755,root,root) %{_bindir}/pyshell
-%attr(755,root,root) %{_bindir}/pywrap
-%attr(755,root,root) %{_bindir}/pywxrc
-
+%doc CHANGES.rst LICENSE.txt README.rst TODO.rst docs/{MigrationGuide,classic_vs_phoenix}.rst README.editor.txt CHANGELOG.plot.md README.plot.md LICENSE_BSD_Simple.pubsub.txt README_WxPython.pubsub.txt RELEASE_NOTES.pubsub.txt
+%attr(755,root,root) %{_bindir}/helpviewer-2
+%attr(755,root,root) %{_bindir}/img2png-2
+%attr(755,root,root) %{_bindir}/img2py-2
+%attr(755,root,root) %{_bindir}/img2xpm-2
+%attr(755,root,root) %{_bindir}/pycrust-2
+%attr(755,root,root) %{_bindir}/pyshell-2
+%attr(755,root,root) %{_bindir}/pyslices-2
+%attr(755,root,root) %{_bindir}/pyslicesshell-2
+%attr(755,root,root) %{_bindir}/pywxrc-2
+%attr(755,root,root) %{_bindir}/wxdemo-2
+%attr(755,root,root) %{_bindir}/wxdocs-2
+%attr(755,root,root) %{_bindir}/wxget-2
 %{py_sitedir}/wxversion.py[co]
-
 %dir %{py_sitedir}/wx
-%attr(755,root,root) %{py_sitedir}/wx/*.so
+%if %{without system_wx}
+%{py_sitedir}/wx/libwx_baseu*-3.0.so*
+%{py_sitedir}/wx/libwx_gtk3u*-3.0.so*
+%dir %{py_sitedir}/wx/locale
+# wxstd domain for wxWidgets 3.0.x
+%lang(af) %{py_sitedir}/wx/locale/af
+%lang(an) %{py_sitedir}/wx/locale/an
+%lang(ar) %{py_sitedir}/wx/locale/ar
+%lang(ca) %{py_sitedir}/wx/locale/ca
+%lang(ca@valencia) %{py_sitedir}/wx/locale/ca@valencia
+%lang(cs) %{py_sitedir}/wx/locale/cs
+%lang(da) %{py_sitedir}/wx/locale/da
+%lang(de) %{py_sitedir}/wx/locale/de
+%lang(el) %{py_sitedir}/wx/locale/el
+%lang(es) %{py_sitedir}/wx/locale/es
+%lang(eu) %{py_sitedir}/wx/locale/eu
+%lang(fi) %{py_sitedir}/wx/locale/fi
+%lang(fr) %{py_sitedir}/wx/locale/fr
+%lang(gl) %{py_sitedir}/wx/locale/gl
+%lang(hi) %{py_sitedir}/wx/locale/hi
+%lang(hu) %{py_sitedir}/wx/locale/hu
+%lang(id) %{py_sitedir}/wx/locale/id
+%lang(it) %{py_sitedir}/wx/locale/it
+%lang(ja) %{py_sitedir}/wx/locale/ja
+%lang(ko) %{py_sitedir}/wx/locale/ko
+%lang(lt) %{py_sitedir}/wx/locale/lt
+%lang(lv) %{py_sitedir}/wx/locale/lv
+%lang(ms) %{py_sitedir}/wx/locale/ms
+%lang(nb) %{py_sitedir}/wx/locale/nb
+%lang(ne) %{py_sitedir}/wx/locale/ne
+%lang(nl) %{py_sitedir}/wx/locale/nl
+%lang(pl) %{py_sitedir}/wx/locale/pl
+%lang(pt) %{py_sitedir}/wx/locale/pt
+%lang(pt_BR) %{py_sitedir}/wx/locale/pt_BR
+%lang(ro) %{py_sitedir}/wx/locale/ro
+%lang(ru) %{py_sitedir}/wx/locale/ru
+%lang(sk) %{py_sitedir}/wx/locale/sk
+%lang(sl) %{py_sitedir}/wx/locale/sl
+%lang(sq) %{py_sitedir}/wx/locale/sq
+%lang(sv) %{py_sitedir}/wx/locale/sv
+%lang(ta) %{py_sitedir}/wx/locale/ta
+%lang(tr) %{py_sitedir}/wx/locale/tr
+%lang(uk) %{py_sitedir}/wx/locale/uk
+%lang(vi) %{py_sitedir}/wx/locale/vi
+%lang(zh_CN) %{py_sitedir}/wx/locale/zh_CN
+%lang(zh_TW) %{py_sitedir}/wx/locale/zh_TW
+%endif
+%{py_sitedir}/wx/_*.so
+%{py_sitedir}/wx/siplib.so
 %{py_sitedir}/wx/*.py[co]
-%dir %{py_sitedir}/wx/build
-%{py_sitedir}/wx/build/*.py[co]
+%{py_sitedir}/wx/*.pyi
 %dir %{py_sitedir}/wx/lib
 %{py_sitedir}/wx/lib/*.py[co]
+%{py_sitedir}/wx/lib/myole4ax.idl
+%{py_sitedir}/wx/lib/myole4ax.tlb
 %dir %{py_sitedir}/wx/lib/analogclock
 %{py_sitedir}/wx/lib/analogclock/*.py[co]
 %dir %{py_sitedir}/wx/lib/analogclock/lib_setup
@@ -183,6 +216,8 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/wx/lib/floatcanvas/*.py[co]
 %dir %{py_sitedir}/wx/lib/floatcanvas/Utilities
 %{py_sitedir}/wx/lib/floatcanvas/Utilities/*.py[co]
+%dir %{py_sitedir}/wx/lib/gizmos
+%{py_sitedir}/wx/lib/gizmos/*.py[co]
 %dir %{py_sitedir}/wx/lib/masked
 %{py_sitedir}/wx/lib/masked/*.py[co]
 %dir %{py_sitedir}/wx/lib/mixins
@@ -200,6 +235,9 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/wx/lib/agw/ribbon/*.py[co]
 %dir %{py_sitedir}/wx/lib/pdfviewer
 %{py_sitedir}/wx/lib/pdfviewer/*.py[co]
+%{py_sitedir}/wx/lib/pdfviewer/bitmaps
+%dir %{py_sitedir}/wx/lib/plot
+%{py_sitedir}/wx/lib/plot/*.py[co]
 %dir %{py_sitedir}/wx/lib/pubsub
 %{py_sitedir}/wx/lib/pubsub/*.py[co]
 %dir %{py_sitedir}/wx/lib/pubsub/core
@@ -210,85 +248,20 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/wx/lib/pubsub/core/kwargs/*.py[co]
 %dir %{py_sitedir}/wx/lib/pubsub/utils
 %{py_sitedir}/wx/lib/pubsub/utils/*.py[co]
+%dir %{py_sitedir}/wx/lib/wxcairo
+%{py_sitedir}/wx/lib/wxcairo/*.py[co]
 %dir %{py_sitedir}/wx/py
 %{py_sitedir}/wx/py/*.ico
+%{py_sitedir}/wx/py/*.png
 %{py_sitedir}/wx/py/*.py[co]
 %doc %{py_sitedir}/wx/py/*.txt
 %dir %{py_sitedir}/wx/tools
 %{py_sitedir}/wx/tools/*.py[co]
-%dir %{py_sitedir}/wx/tools/XRCed
-%{py_sitedir}/wx/tools/XRCed/*.py[co]
-%doc %{py_sitedir}/wx/tools/XRCed/*.txt
-%{py_sitedir}/wx/tools/XRCed/*.xrc
-
-%{py_sitedir}/wxPython-*.egg-info
+%{py_sitedir}/wxPython-%{version}-py*.egg-info
 
 %files devel
 %defattr(644,root,root,755)
-%{_includedir}/wx-3.0/wx/wxPython
-
-%files editra
-%defattr(644,root,root,755)
-%doc wxPython/wx/tools/Editra/{AUTHORS,CHANGELOG,COPYING,FAQ,NEWS,README,THANKS,TODO,docs/*.txt}
-%attr(755,root,root) %{_bindir}/editra
-%dir %{py_sitedir}/wx/tools/Editra
-%{py_sitedir}/wx/tools/Editra/__init__.py[co]
-%{py_sitedir}/wx/tools/Editra/launcher.py[co]
-%{py_sitedir}/wx/tools/Editra/Editra.pyw
-%dir %{py_sitedir}/wx/tools/Editra/locale
-%lang(ca) %{py_sitedir}/wx/tools/Editra/locale/ca_ES@valencia
-%lang(cs) %{py_sitedir}/wx/tools/Editra/locale/cs_CZ
-%lang(da) %{py_sitedir}/wx/tools/Editra/locale/da_DK
-%lang(de) %{py_sitedir}/wx/tools/Editra/locale/de_DE
-%lang(en) %{py_sitedir}/wx/tools/Editra/locale/en_US
-%lang(es) %{py_sitedir}/wx/tools/Editra/locale/es_ES
-%lang(fr) %{py_sitedir}/wx/tools/Editra/locale/fr_FR
-%lang(gl) %{py_sitedir}/wx/tools/Editra/locale/gl_ES
-%lang(hr) %{py_sitedir}/wx/tools/Editra/locale/hr_HR
-%lang(hu) %{py_sitedir}/wx/tools/Editra/locale/hu_HU
-%lang(it) %{py_sitedir}/wx/tools/Editra/locale/it_IT
-%lang(ja) %{py_sitedir}/wx/tools/Editra/locale/ja_JP
-%lang(lv) %{py_sitedir}/wx/tools/Editra/locale/lv_LV
-%lang(nl) %{py_sitedir}/wx/tools/Editra/locale/nl_NL
-%lang(nn) %{py_sitedir}/wx/tools/Editra/locale/nn_NO
-%lang(pl) %{py_sitedir}/wx/tools/Editra/locale/pl_PL
-%lang(pt_BR) %{py_sitedir}/wx/tools/Editra/locale/pt_BR
-%lang(ro) %{py_sitedir}/wx/tools/Editra/locale/ro_RO
-%lang(ru) %{py_sitedir}/wx/tools/Editra/locale/ru_RU
-%lang(sk) %{py_sitedir}/wx/tools/Editra/locale/sk_SK
-%lang(sl) %{py_sitedir}/wx/tools/Editra/locale/sl_SI
-%lang(sr) %{py_sitedir}/wx/tools/Editra/locale/sr_RS
-%lang(sv) %{py_sitedir}/wx/tools/Editra/locale/sv_SE
-%lang(tr) %{py_sitedir}/wx/tools/Editra/locale/tr_TR
-%lang(uk) %{py_sitedir}/wx/tools/Editra/locale/uk_UA
-%lang(zh_CN) %{py_sitedir}/wx/tools/Editra/locale/zh_CN
-%lang(zh_TW) %{py_sitedir}/wx/tools/Editra/locale/zh_TW
-%{py_sitedir}/wx/tools/Editra/pixmaps
-%dir %{py_sitedir}/wx/tools/Editra/src
-%{py_sitedir}/wx/tools/Editra/src/*.py[co]
-%dir %{py_sitedir}/wx/tools/Editra/src/autocomp
-%{py_sitedir}/wx/tools/Editra/src/autocomp/*.py[co]
-%dir %{py_sitedir}/wx/tools/Editra/src/eclib
-%{py_sitedir}/wx/tools/Editra/src/eclib/*.py[co]
-%dir %{py_sitedir}/wx/tools/Editra/src/extern
-%{py_sitedir}/wx/tools/Editra/src/extern/*.py[co]
-%dir %{py_sitedir}/wx/tools/Editra/src/syntax
-%{py_sitedir}/wx/tools/Editra/src/syntax/*.py[co]
-%dir %{py_sitedir}/wx/tools/Editra/src/ebmlib
-%{py_sitedir}/wx/tools/Editra/src/ebmlib/*.py[co]
-%{py_sitedir}/wx/tools/Editra/styles
-
-%files xrced
-%defattr(644,root,root,755)
-%doc wxPython/wx/tools/XRCed/{CHANGES.txt,ChangeLog,README.txt,TODO.txt,license.txt}
-%attr(755,root,root) %{_bindir}/xrced
-%dir %{py_sitedir}/wx/tools/XRCed
-%{py_sitedir}/wx/tools/XRCed/misc
-%dir %{py_sitedir}/wx/tools/XRCed/plugins
-%{py_sitedir}/wx/tools/XRCed/plugins/*.py[co]
-%{py_sitedir}/wx/tools/XRCed/plugins/bitmaps
-%{py_sitedir}/wx/tools/XRCed/plugins/gizmos.crx
-%{py_sitedir}/wx/tools/XRCed/xrced.htb
+%{py_sitedir}/wx/include
 
 %files examples
 %defattr(644,root,root,755)

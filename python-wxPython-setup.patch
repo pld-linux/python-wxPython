@@ -1,0 +1,19 @@
+--- wxPython-4.1.0/setup.py.orig	2020-04-24 00:14:41.000000000 +0200
++++ wxPython-4.1.0/setup.py	2024-11-17 14:23:38.064966594 +0100
+@@ -108,6 +108,7 @@ class wx_build(orig_build):
+     """
+     user_options = [
+         ('skip-build', None, 'skip building the C/C++ code (assumes it has already been done)'),
++        ('build-base=', 'b', "base directory for build library"),
+         ]
+     boolean_options = ['skip-build']
+ 
+#@@ -131,7 +131,7 @@ class wx_build(orig_build):
+#                 'message and the wxWidgets and Phoenix build steps in the future.\n')
+# 
+#             # Use the same Python that is running this script.
+#-            cmd = ['"{}"'.format(sys.executable), '-u', 'build.py', 'build']
+#+            cmd = ['"{}"'.format(sys.executable), '-u', 'build.py', 'build_py']
+#             cmd = ' '.join(cmd)
+#             runcmd(cmd)
+# 
